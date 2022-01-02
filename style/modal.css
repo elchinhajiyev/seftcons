@@ -1,0 +1,92 @@
+.popupcontainer {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    transition: 0.2s ease-in;
+}
+
+.popup {
+    background-color: #fff;
+    width: 700px;
+    max-width: 100%;
+    padding: 10px 30px;
+    border-radius: 5px;
+    text-align: center;
+    
+
+}
+
+.popupcontainer.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.popup h2{
+    margin: 0;
+    opacity: 0.7;
+    font-weight: 600;
+}
+
+.popup p{
+    font-size: 12px;
+    opacity: 0.7px;
+    text-align: justify;
+}
+
+
+
+
+.c-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    transition: 0.2s ease-in;
+}
+
+.commentbox {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fff;
+    width: 700px;
+    max-width: 100%;
+    padding: 10px 30px;
+    border-radius: 5px;
+    text-align: center;
+    
+
+}
+
+.c-container.showbox{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.commentbox h2{
+    margin: 0;
+    opacity: 0.7;
+    font-weight: 600;
+}
+
+.commentbox p{
+    font-size: 12px;
+    opacity: 0.7px;
+    text-align: justify;
+}
