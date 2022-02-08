@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%-include('./inc/head')%> 
-</head>
-<body>
-    <%-include('./inc/nav')%> 
-    <section>
-        <form action="" method="post">
-            <input type="text" name="username"  placeholder="Ad">
-            <input type="text" name="Surname" placeholder="Soyad">
-            <input type="email" name="email" placeholder="Elektron poçt ünvanı">
-            <input type="text" name="idcard" placeholder="FİN nömrəsi">
-            <input type="number" name="telefon"  placeholder="Telefon">
-            <input type="password" name="password" placeholder="Şifrə">
-            <input type="submit" value="Göndər">
+<%- include('partials/header.ejs') %> 
+
+<div class="container">
+
+    <form action="/login" method="post">
+       
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">Elektron poçt ünvanınızı qeyd edin.</div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Daxil ol</button>
+      </form>
+
+</div>
 
 
-        </form>
-    </section>
-</body>
-</html>
+
+<%- include('partials/footer.ejs') %> 

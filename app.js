@@ -1,114 +1,176 @@
-const express = require('express')
-const morgan = require('morgan')
-const mongoose = require('mongoose')
-const {result, identity, add} = require('lodash')
-const { render } = require('ejs')
-const Evaluation = require('./models/evaluations')
-const { request } = require('express')
-const app = express()
-const PORT = process.env.PORT || 8080;
+const express = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
+LocalStrategy = require('passport-local');
+const bodyParser = require('body-parser');
+const Evaluation = require('./models/evaluationModel');
+const Comment = require('./models/commentModel');
+const User =  require('./models/userModel');
+const cerezData = require('./cerez');
+const { find, db } = require('./models/evaluationModel');
+const res = require('express/lib/response');
+const app = express();
+app.set('view engine', 'ejs');
+app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }));
+const PORT = process.env.PORT || 27777;
 
-const dbURL = 'mongodb+srv://elchin:elchin@evaluation.vt3iq.mongodb.net/node-anket?retryWrites=true&w=majority'
-mongoose.connect(dbURL) 
-.then((result)=>app.listen(PORT, ()=>{
-    console.log(`Server ${PORT} portunda calisir`);
-}))
-.catch((err)=>console.log("baglanmadı"))
+const dbURL = 'mongodb+srv://dbuser:m0LNAxSPU0pMgSmu@akkreditasiya.n1bzf.mongodb.net/evaluations?retryWrites=true&w=majority'
+mongoose.connect(dbURL)
+    .then((result) => app.listen(PORT, () => {
+        console.log(`Server ${PORT} portunda calisir`);
+    }));
 
-app.set('view engine', 'ejs')
-app.use(express.static('style'))
-app.use(express.urlencoded ({extended: true}))
-app.use(morgan('dev'))
+cerezData();
 
+//passport config
+app.use(require('express-session')({
+    secret: 'this is secret',
+    resave: false,
+    saveUninitialized:false
+}));
 
-app.get('/', (req,res)=>{
-   Evaluation.find().sort({created_At:-1})
-   .then((result)=>{
-    res.render('evaluation', {title: 'Main Page', evaluations: result})
-   })
-   .catch((err)=>{
-       console.log(err);
-   }) 
- })
-
-app.get('/evaluation/:id', (req,res)=>{
-    const id = req.params.id
-    Evaluation.findById(id)
-    .then((result)=>{
-        res.render('evaluation', {evaluation: result, title: 'institutons'})
-})
-.catch((err)=>{
-    res.status(404).render('404',  {title: 'Error 404'})
-})
-
-})
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
-app.get('/admin', (req,res)=>{
-    Evaluation.find().sort({created_At:-1})
-    .then((result)=>{
-     res.render('admin', {title: 'admin', evaluations: result})
+//butun routlara access
+
+app.use(function(req,res,next){
+    res.locals.currentUser=req.user;
+    next();
+});
+
+
+//=========Auth ROUTES=========//
+//signup
+app.get('/signup', function(req,res){
+    res.render('signup');
+});
+
+app.post('/signup', function(req,res){
+    let newUser = new User({username:req.body.username, fullname: req.body.fullname, phone: req.body.phone});
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err)
+            return res.render('signup')
+        }
+         passport.authenticate('local')(req,res, function(){
+            res.redirect('evaluations') 
+         })  
     })
-    .catch((err)=>{
-        console.log(err);
-    }) 
-})
+});
 
-app.get('/evaluation', (req,res)=>{
-    Evaluation.find().sort({created_At:-1})
-    .then((result)=>{
-     res.render('evaluation', {title: 'evaluation', evaluations: result})
-    })
-    .catch((err)=>{
-        console.log(err);
-    }) 
-})
+//login
+app.get('/login', function(req,res){
+    res.render('login');
+});
+
+app.post('/login', passport.authenticate("local",{
+successRedirect: "/evaluations",
+failureRedirect: "/login",
+}), function (req,res){
+});
+
+//signout
+app.get("/signout", function(req,res){
+    req.logout();
+    res.redirect("/login")
+});
+
+function userIsLogin(req, res, next){
+    if(
+        req.isAuthenticated()){
+            return next();
+        }
+        res.redirect('/login'); 
+};
+
+app.get('/user/:id/profile', userIsLogin, function(req,res){
+res.render("userProfile");
+});
+
+//============AUTH ROUTES=================//
+
+app.get('/',  function (req, res) {
+    console.log(req.user)
+    res.render('login');
+});
+
+//====================EVALUATION ROUTES==================//
 
 
-app.get('/admin/addevaluation', (req,res)=>{
-    res.render('addevaluation', {title: 'new evaluation'})
-})
+app.get('/evaluations', userIsLogin, function (req, res) {
+    Evaluation.find({}, function (err, evaluationDB) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.render("evaluations/evaluations", { evaluations: evaluationDB });
+        }
+    });
+});
+app.get('/evaluations/add', function (req, res) {
+    res.render("evaluations/add") 
+});
 
-app.get('/admin/addreport', (req,res)=>{
-    res.render('addreport', {title: 'new report'})
-})
-
-
-app.get('/login', (req,res)=>{
-    res.render('login', {title: 'daxil ol'})
-})
-
-
-app.post('/admin/addevaluation', (req,res)=>{
-    const evaluation = new Evaluation (req.body)
+app.post('/evaluations', (req,res)=>{
+    const evaluation = new Evaluation(req.body)
     evaluation.save()
     .then((result)=>{
-        res.redirect('/admin')
+        res.redirect('/evaluations')
     })
     .catch((err)=>{
         console.log(err);
     })
-})
+});
+
+app.get('/evaluations/:id', function(req,res){
+    Evaluation.findById(req.params.id).populate("comments").exec(function(err, findevaluation){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('evaluations/evaluation', {evaluation: findevaluation});
+        }
+    });
+
+});
 
 
 
-
-app.get('/about', (req,res)=>{
-    res.render('about',  {title: 'Hakkimizda'})
-})
+//====================EVALUATION ROUTES==================//
 
 
-app.get('/about-us',(req,res)=>{
-    res.redirect('about')
-})
+//==============================COMMENT ROUTES==========================//
+
+app.get('/evaluations/:id/comments/add', function(req,res){
+    Evaluation.findById(req.params.id, function(err, findevaluation){
+       if(err){
+           console.log(err);
+       } else{
+           res.render('comments/add', {evaluation : findevaluation });
+       }
+    });
+});
 
 
+app.post('/evaluations/:id/comments/', function(req,res){
+    Evaluation.findById(req.params.id, function(err, findevaluation){
+       if(err){
+           console.log(err);
+       } else{
+           Comment.create(req.body.comment, function(err, comment ){
+               findevaluation.comments.push(comment)
+               findevaluation.save();
+               res.redirect("/evaluations/"+findevaluation._id)
 
+           })
+       }
+    });
+});
 
-app.use((req,res) =>{
-    res.status(404).render('404',  {title: 'Error 404'})
-})
-
-
+//==============================COMMENT ROUTES==========================//
 
 
