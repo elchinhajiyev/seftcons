@@ -3,8 +3,12 @@ const mongoose = require ('mongoose')
 
 var commentSchema = new mongoose.Schema({
     author: {
-        type: String,
-        require:true
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User" 
+        },
+        username: String,
+        fullname: String
     },
  
     content:{

@@ -1,79 +1,250 @@
-<%- include('../partials/header.ejs') %> 
-    <div class="container">
-        <h2>Müəssisənin Özünüqiymətləndirmə Hesabatı</h2>
-    <div class="instreport">
-       <div class="institutionname"> <h4><%=evaluation.name%> </h4></div>
-       <a href="/views/addreport.ejs" target="_blank"><button  type="button" class="btn btn-outline-danger"  >Yekun akkreditasiya hesabatı</button></a>
+<%- include('../partials/header.ejs') %>       
+<div class="inbackround">
+    <div class="content">
+        <div class="header"
+            style=" color: azure; display: flex; justify-content: center; align-items: center;">
+            <h1><%=evaluation.name%></h1>
+        </div>
+        <div class="button"
+            style="display:flex; justify-content: center; gap: 5px;  z-index: 5;">
+            <button class="btn btn-sm btn-light" style="z-index: 15;">Yekun Hesabat Əlavə et</button>
+            <a href="/evaluations/<%=evaluation._id%>/edit" target="_blank">
+                <button class="btn btn-sm btn-warning" style="z-index: 50;"><i class="bi bi-pencil-square"></i> Hesabatı redaktə et</button></a>
+           
+        </div>
+        
     </div>
-        <div class="questions">
-            <div class="questionname">
-                <h3>Elmi müəssisə (təşkilat): Giriş</h3>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down"
-                    viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                </svg>
-            </div>
-            <div class="questioncontent">
-                <p>
-                    <%=evaluation.question_1%>
-                </p>
-                <div class="button">
-                    <button class="btn btn-outline-primary btn-sm">All Comments</button>
-                    <button class="btn btn-outline-success btn-sm">Documents</button>
-                </div>
+</div>
+
+<div class="area">
+    <div class="leftarea"><strong><h6 style="padding-top: 10px; padding-left: 5px;">Başlıqlar</strong> </h6><hr>
+        <li><a href="#">1.Elmi müəssisə (təşkilat): Giriş</a></li>
+        <li><a href="#">2.Özünüqiymətləndirmə prosesi</a></li>
+        <li><a href="#">3.Tədqiqat proqramı</a></li>
+        <li><a href="#">4.Tədqiqat fəaliyyəti</a></li>
+        <li><a href="#">5.Tədqiqat nəticəsi</a></li>
+        <li><a href="#">6.İnsan resursları</a></li>
+        <li><a href="#">7.İnfrastruktur</a></li>
+        <li><a href="#">8.Maliyyə resursları</a></li>
+        <li><a href="#">9.Tədqiqat mühiti</a></li>
+        <li><a href="#">10.Elmi rəhbərlik və dəstək</a></li>
+        <li><a href="#">11.İşçi heyyət</a></li>
+        <li><a href="#">12.Keyfiyyət təminatı</a></li>
+        <li><a href="#">13.İdarəetmə və nəzarət</a></li>
+        <li><a href="#">14.Daxili keyfiyyət təminatı</a></li>
+        <li><a href="#">15.Akademik dürüstlük</a></li>
+        <li><a href="#">16.Nəticələr</a></li>
+        <li><a href="#">17.Əlavə</a></li>
+       
+</div>
+    <div class="centerarea">
+        <div class="question">
+            <div class="qtitle"><strong>1.Elmi müəssisə (təşkilat): Giriş</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_1%></div>
+            <div class="comment">Şərhlər
                 <div class="comment_content">
-                 <% evaluation.comments.forEach(function(comment){ %>
-                   
-                    <p> <strong><%= comment.author %> </strong> <%= comment.content %> </p>
-                 <%}) %> 
-                    
-                </div>
-                <!-- ----------------------------->
-<div style="width: 50%;">
-    <form action="/evaluations/<%= evaluation._id %>/comments" method="POST">
-        <div class="form-group">
-            <input class="form-control" type="text" name="comment[author]" placeholder="muellif">
+                    <% evaluation.comments.forEach(comment=>{ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author.fullname%> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="text" name="comment[content]" placeholder="Şərh">
+        <div class="question">
+            <div class="qtitle"><strong>2. Özünüqiymətləndirmə prosesi</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_2%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%=comment.author%> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="qtitle"><strong>3. Tədqiqat proqramı</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_3%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <button class="btn btn-large btn-primary btn-block">Əlavə et</button>
+        <div class="question">
+            <div class="qtitle"><strong>4.Tədqiqat fəaliyyəti</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_4%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
         </div>
-    </form>
-</div>
-</div>
-                 <!-- ---------------------------------------------->
 
+        <div class="question">
+            <div class="qtitle"><strong>5. Tədqiqat nəticəsi</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_5%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
 
-      
-            <!-- ------------------------------------------------------------ -->
-            <div class="questions">
-                <div class="questionname">
-                    <h3>Özünüqiymətləndirmə prosesi</h3>
-    
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                </div>
-                <div class="questioncontent"><p><%=evaluation.questions%></p>
-                    <div class="button"><button class="btn btn-outline-primary btn-sm">Add Comment</button>
-                        <button class="btn btn-outline-success btn-sm">Documents</button></div>
-                        <div class="comment_content">
-                            <% evaluation.comments.forEach(function(comment){ %>
-                              
-                               <p> <strong><%= comment.author %> </strong> <%= comment.content %> </p>
-                            <%}) %> 
-                               
-                           </div>
+        <div class="question">
+            <div class="qtitle"><strong>6. İnsan resursları</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_6%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>7. İnfrastruktur</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_7%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>8. Maliyyə resursları</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_8%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>9. Tədqiqat mühiti</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_9%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>10. Elmi rəhbərlik və dəstək</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_10%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>11. İşçi heyyət</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_11%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>12. Keyfiyyət təminatı</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_12%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>13. İdarəetmə və nəzarət</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_13%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>14. Daxili keyfiyyət təminatı</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_14%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>15. Akademik dürüstlük</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_15%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>16. Nəticələr</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_16%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <div class="qtitle"><strong>17. Əlavə</strong> <hr></div>
+            <div class="qcontent"><%=evaluation.question_17%></div>
+            <div class="comment">Şərhlər
+                <div class="comment_content">
+                    <% evaluation.comments.forEach(function(comment){ %>
+                         <p> <strong> <i class="bi bi-person-circle" style="width: 10px; margin-right: 2px;"></i><%= comment.author %> </strong> <i class="bi bi-dash-lg"></i><%= comment.content %> </p>
+                    <%}) %> 
+                   </div>
+            </div>
+        </div>
+
+       
+<!-- ----------------------------->
                            <!-- ----------------------------->
            <div style="width: 50%;">
                <form action="/evaluations/<%= evaluation._id %>/comments" method="POST">
-                   <div class="form-group">
-                       <input class="form-control" type="text" name="comment[author]" placeholder="muellif">
-                   </div>
                    <div class="form-group">
                        <input class="form-control" type="text" name="comment[content]" placeholder="Şərh">
                    </div>
@@ -86,214 +257,6 @@
            </div>
             </div>
             </div>
-            <!-- ------------------------------------------------------------ -->
-            <div class="questions">
-                <div class="questionname">
-                    <h3>Tədqiqat proqramı</h3>
-    
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                </div>
-                <div class="questioncontent"><p><%=evaluation.question_3%></p>
-                    <div class="button"><button class="btn btn-outline-primary btn-sm">Add Comment</button>
-                        <button class="btn btn-outline-success btn-sm">Documents</button></div>
-            </div>
-            </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Tədqiqat fəaliyyəti</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_4%></p>
-                <div class="button"><button class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Tədqiqat nəticəsi</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_5%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>İnsan resursları</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_6%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>İnfrastruktur</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_7%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Maliyyə resursları</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_8%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Tədqiqat mühiti</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_9%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Elmi rəhbərlik və dəstək</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_10%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>İşçi heyyət</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_11%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Keyfiyyət təminatı</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_12%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>İdarəetmə və nəzarət</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_13%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Daxili keyfiyyət təminatı</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_14%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Akademik dürüstlük</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_15%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Nəticələr</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_16%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
-        </div>
-        </div>
-        <!-- ------------------------------------------------------------ -->
-        <div class="questions">
-            <div class="questionname">
-                <h3>Əlavə</h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-            </div>
-            <div class="questioncontent"><p><%=evaluation.question_17%></p>
-                <div class="button"><button type="button" class="btn btn-outline-primary btn-sm">Add Comment</button>
-                    <button type="button" class="btn btn-outline-success btn-sm">Documents</button></div>
         </div>
         </div>
         <!-- ------------------------------------------------------------ -->
@@ -302,7 +265,7 @@
 
 
 
-<!-- <script>
+<script>
 
 
 
@@ -328,12 +291,5 @@ const close = document.getElementById('close');
 
     });
 
-   
-
-
-
-
-
-
-    </script> -->
+    </script>
 <%- include('../partials/footer.ejs') %> 

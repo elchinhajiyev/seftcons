@@ -6,6 +6,8 @@ var evaluationSchema = new mongoose.Schema({
         require:true,
         
     },
+
+
  
     question_1:{
         type: String,
@@ -98,6 +100,15 @@ var evaluationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
     }],
+
+    author: {
+        id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User" 
+        },
+        username: String,
+        fullname: String,
+    },
 
     },{timestamps:true});
 

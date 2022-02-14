@@ -75,7 +75,7 @@ function cerezData(){
         }
             console.log('Evaluations removed');
         //add data
-        data.forEach(function(degisken){
+      /*   data.forEach(function(degisken){
             Evaluation.create(degisken, function(err, evaluation){
                 if(err){
                     console.log(err);
@@ -97,7 +97,7 @@ function cerezData(){
                     });
                 }
             });
-        })
+        }) */
     });
 }
 
