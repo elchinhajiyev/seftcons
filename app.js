@@ -1,9 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const methodOverride = require('method-override'),
+const methodOverride = require('method-override');
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart();
 LocalStrategy = require('passport-local');
 const bodyParser = require('body-parser');
+var multer = require('multer');
+var fs = require('fs')
+var path = require('path')
+var crypto = require('crypto')
 const Evaluation = require('./models/evaluationModel');
 const Comment = require('./models/commentModel');
 const User =  require('./models/userModel');
@@ -13,7 +19,8 @@ const res = require('express/lib/response');
 const { isBuffer } = require('lodash');
 const app = express();
 app.set('view engine', 'ejs');
-app.use(express.static('public'))
+app.use(express.static('public'));
+app.use(express.static(__dirname+'/public'));
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 27777;
@@ -23,9 +30,25 @@ mongoose.connect(dbURL)
     .then((result) => app.listen(PORT, () => {
         console.log(`Server ${PORT} portunda calisir`);
     }));
-/* 
-cerezData();
- */
+
+/* cerezData(); */
+
+//todo upload storage
+
+var storage = multer.diskStorage({
+    destination: 'public/upload/',
+    filename: function (req,file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            if(err) return cb(err)
+            cb(null, Math.floor(Math.random()*900000000)+1000000000+path.extname(file.originalname))
+            
+        })
+        
+    }
+})
+var upload = multer({storage:storage});
+
+
 //passport config
 app.use(require('express-session')({
     secret: 'this is secret',
@@ -92,6 +115,23 @@ function userIsLogin(req, res, next){
         res.redirect('/login'); 
 };
 
+function userControl(req, res, next) {
+    if(req.isAuthenticated()){
+        Evaluation.findById(req.params.id, function (err, findevaluation){
+            if (err) {
+                console.log(err);
+            }else{
+                if (findevaluation.author.id.equals(req.user._id)) {
+                    next();
+                    
+                }else{
+                   res.send ('Başqasının məlumatlarını dəyişdirmə icazəniz yoxdur')
+                }
+            }
+        });
+    }
+}
+
 app.get('/user/:id/profile', userIsLogin, function(req,res){
 res.render("userProfile");
 });
@@ -106,7 +146,7 @@ app.get('/',  function (req, res) {
 //====================EVALUATION ROUTES==================//
 
 
-app.get('/evaluations', userIsLogin, function (req, res) {
+app.get('/evaluations', userIsLogin, userIsLogin, function (req, res) {
     Evaluation.find({}, function (err, evaluationDB) {
         if (err) {
             console.log(err)
@@ -138,6 +178,7 @@ app.post('/evaluations', (req,res)=>{
   var question_15 = req.body.question_15;
   var question_16 = req.body.question_16;
   var question_17 = req.body.question_17;
+  var question_18 = req.body.question_18;
   var author = {id: req.user._id, username: req.user.username, username: req.user.fullname};
   var newevaluation = {
       name: name, 
@@ -158,6 +199,7 @@ app.post('/evaluations', (req,res)=>{
       question_15:question_15,
       question_16:question_16,
       question_17:question_17,
+      question_18:question_18,
       author: author,
     }
     Evaluation.create(newevaluation, function(err, createdEvaluation){
@@ -182,6 +224,7 @@ app.get('/evaluations/:id', function(req,res){
 });
 
 
+
 //====================EVALUATION ROUTES==================//
 
 
@@ -198,7 +241,7 @@ Evaluation.findById(req.params.id, function(err, findevaluation){
 })
 });
 
-app.put('/evaluations/:id', userIsLogin, function (req,res) {
+app.put('/evaluations/:id', userControl,  function (req,res) {
 Evaluation.findByIdAndUpdate(req.params.id, req.body.evaluation, function(err, updatedevaluation){
     if (err) {
         console.log(err)
@@ -247,7 +290,36 @@ app.post('/evaluations/:id/comments/', userIsLogin, function(req,res){
 
 
 
+//==============================UPLOAD ROUTES==========================//
 
+app.post('/upload', multipartMiddleware, (req,res)=>{
+    try {
+        fs.readFile(req.files.upload.path, function (err, data) {
+            var newPath = __dirname + '/public/images/' + req.files.upload.name;
+            fs.writeFile(newPath, data, function (err) {
+                if (err) console.log({err: err});
+                else {
+                    console.log(req.files.upload.originalFilename);
+                //     imgl = '/images/req.files.upload.originalFilename';
+                //     let img = "<script>window.parent.CKEDITOR.tools.callFunction('','"+imgl+"','ok');</script>";
+                //    res.status(201).send(img);
+                 
+                    let fileName = req.files.upload.name;
+                    let url = '/images/'+fileName;                    
+                    let msg = 'Yukleme tamamlandi';
+                    let funcNum = req.query.CKEditorFuncNum;
+                    console.log({url,msg,funcNum});
+                   
+                    res.status(201).send("<script>window.parent.CKEDITOR.tools.callFunction('"+funcNum+"','"+url+"','"+msg+"');</script>");
+                }
+            });
+        });
+       } catch (error) {
+           console.log(error.message);
+       }
+})
+
+//==============================UPLOAD ROUTES==========================//
 
 
 

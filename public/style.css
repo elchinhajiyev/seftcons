@@ -177,7 +177,7 @@ height: 200px;
 }
 
 .inbackround{
-    
+    z-index: -2;
     background-color: #b400eb;
     width: 100%;
 background: transparent linear-gradient(
@@ -216,7 +216,7 @@ opacity: .2;
     position: absolute;
     top: 0;
     right: -0px;
-    z-index: 0;
+    z-index: -1;
     width: 600px;
     max-width: 100%;
     height: 800px;
@@ -232,5 +232,17 @@ opacity: .2;
         align-items: center;
     }
     
+[data-tab-content]{
+    display: none;
+}
 
+.active[data-tab-content]{
+    display: block;
+    transition: 0.3s ease all;
+}
 
+.tab.active{
+    background-color: rgb(98, 174, 250);
+    color: white;
+    
+}

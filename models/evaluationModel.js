@@ -7,25 +7,21 @@ var evaluationSchema = new mongoose.Schema({
         
     },
 
-
- 
     question_1:{
-        type: String,
-        require: true,
-       
-    },
- 
-    question_2: {
         type:String,
-        require: true,
-       
+        require: true
     },
  
-    question_3: {
-     type:String,
-     require: true
-     },
- 
+    question_2:{
+        type:String,
+        require: true
+       
+    },
+    question_3:{
+        type:String,
+        require: true
+       
+    },
     question_4: {
         type:String,
         require: true
@@ -96,6 +92,10 @@ var evaluationSchema = new mongoose.Schema({
         require: true
     },
     
+    question_18: {
+        type:String,
+        require: true
+    },
     comments:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
