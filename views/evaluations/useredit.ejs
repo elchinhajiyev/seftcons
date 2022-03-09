@@ -1,0 +1,51 @@
+<%- include('../partials/header.ejs') %> 
+<section class="container">
+
+     <h2><%=user.fullname%> </h2><p>İstifadəçi məlumatları<p>
+    <form action="/users/<%=user.id%>?_method=PUT" method="post">
+       <div class="editarea">
+        <div class="editbox">
+        <p> Ad soyad</p>
+       <input type="text" name="user[fullname]" value="<%=user.fullname%>" id="">
+    </div>
+    <div class="editbox">
+        <p> Mobil Nömrə</p>
+       <input type="text" name="user[phone]" value="<%=user.phone%>" id="">
+    </div>
+    <div class="editbox">
+        <p>E-poçt</p>
+       <input style="margin: 0;" type="text" name="user[email]" value="<%=user.username%>" id="">
+    </div>
+    <div class="editbox">
+        <p>Vəzifə</p>
+        <select style="height: 40px; border-color: rgba(0 0 0 0.2);" name="user[role]" id="role">
+         <option type="text" name="user[role]" id=""></option>  
+         <option type="text" name="user[role]"  id="">admin</option>
+           <option type="text" name="user[role]"  id="">expert</option>
+           <option type="text" name="user[role]"  id="">team-leader</option>
+        </select>
+    </div>
+    <div class="editbox">
+      <p>Fəaliyyət sahəsi</p>
+      <select style="height: 40px; border-color: rgba(0 0 0 0.2);" name="user[field]" id="role">
+       <option type="text" name="user[field]" id=""></option>  
+       <option type="text" name="user[field]" id="">Təhsil</option>
+         <option type="text" name="user[field]" id="">Digər 1</option>
+         <option type="text" name="user[field]" id="">Digər 2</option>
+      </select>
+  </div>
+    <div class="editbox">
+        <p>İcazə verilən hesabat (id nömrəsini kopyala)</p>
+       <input type="text" name="user[evaluationid]" value="<%=user.evaluationid%>" id="">
+    </div>
+       <div style="margin-top: 10px; display: flex; justify-content: center;" class="button"><input class="btn btn-success btn-sm" type="submit" value="dəyiş" ></div>
+        </form>
+    </div>
+    </div>
+</section>
+<script src="/ckeditor/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>
+<script type="text/javascript"></script>
+
+
+<%- include('../partials/footer.ejs') %> 

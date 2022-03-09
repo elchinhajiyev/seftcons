@@ -1,23 +1,91 @@
-<%- include('partials/header.ejs') %> 
-
-<div class="container">
-
-    <form action="/login" method="post">
-       
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">Elektron poçt ünvanınızı qeyd edin.</div>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" name="password" class="form-control" id="password">
-        </div>
-        <button type="submit" class="btn btn-primary">Daxil ol</button>
-      </form>
-
+<%- include('./partials/header.ejs') %> 
+<link rel="stylesheet" href="/formbox.css">
+<div class="wrapper">
+  <div class="title-text">
+     <div class="title login">
+        Daxil ol
+     </div>
+     <div class="title signup">
+        Qeydiyyat
+     </div>
+  </div>
+  <div class="form-container">
+     <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login">Daxil ol</label>
+        <label for="signup" class="slide signup">Qeydiyyat</label>
+        <div class="slider-tab"></div>
+     </div>
+     <div class="form-inner">
+        <form action="/login" method="post" class="login">
+           <div class="field">
+            <label for="email" ></label>
+              <input type="username" name="username" placeholder="E-poçt" required>
+            
+           </div>
+           <div class="field" style="margin-bottom: 10px;">
+            <label for="password"></label>
+              <input type="password" name="password" placeholder="Şifrə" required>
+           </div>
+           
+           <div class="field btn">
+              <div class="btn-layer"></div>
+              <input type="submit" value="Login">
+           </div>
+        </form>
+        <form action="/signup" method="post" class="signup">
+           <div class="field">
+            
+            <input type="fullname" name="fullname" placeholder="Ad Soyad" required>
+            <label for="fullname"></label>
+           </div>
+           <div class="field">
+            <input type="email" name="username" placeholder="E-poçt" required>
+            <label for="email"></label>
+         </div>
+         <div class="field">
+          <input type="phone" name="phone" placeholder="Mobil Nömrə" required>
+          <label for="phone"></label>
+       </div>
+           <div class="field">
+            <input type="password" name="password" placeholder="Şifrə (min 4 simvol)" required>
+            <label for="password"></label>
+         </div>
+         <div style="opacity: 0; position: absolute;" class="field">
+            <input type="text" name="evaluationid" placeholder="İcazə verilən hesabat" >
+            <label for="evaluationid"></label>
+            <input type="text" name="role" placeholder="Vəzifə" >
+            <label for="role"></label>
+            <input type="text" name="field" placeholder="Vəzifə" >
+            <label for="field"></label>
+         </div>
+           <div class="field btn">
+              <div class="btn-layer"></div>
+              <input type="submit" value="Qeydiyyatı tamamla">
+           </div>
+        </form>
+     </div>
+  </div>
 </div>
+<script>
+  const loginText = document.querySelector(".title-text .login");
+  const loginForm = document.querySelector("form.login");
+  const loginBtn = document.querySelector("label.login");
+  const signupBtn = document.querySelector("label.signup");
+  const signupLink = document.querySelector("form .signup-link a");
+  signupBtn.onclick = (()=>{
+    loginForm.style.marginLeft = "-50%";
+    loginText.style.marginLeft = "-50%";
+  });
+  loginBtn.onclick = (()=>{
+    loginForm.style.marginLeft = "0%";
+    loginText.style.marginLeft = "0%";
+  });
+  signupLink.onclick = (()=>{
+    signupBtn.click();
+    return false;
+  });
+</script>
 
-
-
-<%- include('partials/footer.ejs') %> 
+<%- include('./partials/footer.ejs') %> 

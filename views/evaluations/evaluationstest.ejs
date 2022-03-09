@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="evbackroundafter">
+    
+    <div class="evbackround">
+        <div class="content">
+        
+           
+                style=" color: azure; display: flex; justify-content: center; align-items: center; padding-top: 50px; ">
+                <h1 style="font-weight: 900">Müəssisələrin özünüqiymətləndirmə hesabatları</h1>
+            </div>
+            
+            <div class="button"
+                style="display:flex; justify-content: center; gap: 5px; padding-bottom: 15px; z-index: 1;">
+                <a href="/users" target="blank"><button class="btn btn-secondary" style="z-index: 5;">İstifadəçi siyahısı</button></a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container" style="margin-bottom: 10px;">
+       
+        <div class="box-container" >
+            <% evaluations.forEach(evaluation=>{ %>
+                <% if(evaluation.id===currentUser.evaluationid){%>
+                    <% } %>
+                   
+                      <% }) %>
+        </div>
+     
+
+</div>    
+
+
+    <%- include('../partials/footer.ejs') %>

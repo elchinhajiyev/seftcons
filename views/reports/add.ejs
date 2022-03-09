@@ -1,0 +1,352 @@
+<%- include('../partials/header.ejs') %> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+   	$(document).ready(function() {
+      CKEDITOR.replaceAll( 'q');
+			});
+</script>
+
+<div class="container">
+	<div class="box2">
+		<div class="boxadd">
+<h3 style="text-align:center; font-weight: 900;"><%= evaluation.name %></h3><p style="text-align: center;">adlı müəssisənin yekun hesabatının əlavə edilməsi bölməsi</p> 
+		</div>
+			<form action="/evaluations/<%= evaluation._id %>/reports" method="POST">
+				<div class="reportcontent">
+					<div class="form-group">
+					<h4>1. Xülasə</h4>
+					Bu bölmələr qiymətləndirmənin hədəf və məqsədlərini təsvir edir və akkreditasiyadan keçən elmi müəssisə (təşkilat) haqqında qısa məlumat verir. Bu, akkreditasiya standartlarına uyğunluq vəziyyətini qısa şəkildə təsvir edir və qiymətləndirmə  şurasının tövsiyəsini qərar üçün verir.  
+				</div>
+				<textarea name="report[content_1]" id="q" class="q" cols="30" rows="5"></textarea>
+				</div>
+				<div class="reportcontent">
+					<div class="form-group">
+					<h4>2. Giriş</h4>
+					Bu hesabatda [müraciət edən müəssisənin adı] Azərbaycan Respublikasının Prezidenti yanında Ali Attestasiya Komissiyasının Elmi Müəssisələrin (Təşkilatların) Akkreditasiya Qaydasına uyğunluğunun vəziyyəti təhlil edilir. Bu, [İl] ərzində aparılan xarici qiymətləndirməyə əsaslanır.
+				</div>
+				<textarea name="report[content_2]" id="q" class="q" cols="30" rows="5"></textarea>
+				</div>
+				
+				<div class="reportcontent">
+					<div class="form-group">
+						<h4>3. Akkreditasiya proseduru</h4>
+						<p><span style="color: #333333;">[M&uuml;raciət edən m&uuml;əssisənin adı]</span> akkreditasiya proseduru elmi m&uuml;əssisələrin (təşkilatların) Akkreditasiyası Əsasnaməsində təsvir olunan prosesə uyğun olaraq həyata ke&ccedil;irilmişdir<em>. Ekspert şurası AAK tərəfindən təyin edildi və aşağıdakı &uuml;zvlərdən ibarət idi:</em></p>
+						<em>Ad, vəzifə, &ouml;lkə (sədr)</em><br>
+						<em>Ad, vəzifə, &ouml;lkə</em><br>
+						<p>Ekspert şurası koordinator olaraq [Ad, vəzifə], AAK tərəfindən dəstəkləndi.</p>
+						<em>[Ekspert şurası qiymətləndirmənin necə aparıldığını əlavə edə bilər, məsələn. iş &uuml;sulu nə idi, şura daxilində fikir birliyinə necə nail olundu, inzibati dəstək tənzimləmələri nələr idi və s</em><em>.)].</em>
+				</div>
+				<textarea name="report[content_3]" id="q" class="q" cols="30" rows="5"></textarea>
+				</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>4. H&uuml;quqi məlumat</h4>
+						<p>Azərbaycan Respublikasının Prezidenti yanında Ali Attestasiya Komissiyası haqqında Əsasnamənin 2.0.16 -cı maddəsi ilə birlikdə Azərbaycan Respublikası &ldquo;Elm haqqında&ldquo; Qanunun 24.4 -c&uuml; maddəsinə əsasən, Ali Attestasiya Komissiyası elmi m&uuml;əssisələri (təşkilatları) akkreditə edir. Məqsədlər:</p>
+							<ul>
+								<li>elmi m&uuml;əssisənin (təşkilatın) akkreditasiya meyarlarına və m&uuml;vafiq normativ h&uuml;quqi aktlara uyğunluğunu m&uuml;əyyən etmək. Akkreditasiyaya əsasən, ### elmi m&uuml;əssisə (təşkilat) kimi fəaliyyət g&ouml;stərmək &uuml;&ccedil;&uuml;n lisenziya verir və rəqabətli maliyyələşdirmə imkanı yaradır.</li>
+								<li>elmi m&uuml;əssisənin (təşkilatın) fəaliyyət keyfiyyətinin artırılmasına dəstək olmaq.</li>
+							</ul>
+						<p>Elmi m&uuml;əssisənin (təşkilatın) akkreditasiyası 6 ildən sonra yenilənməlidir.</p>
+						<strong>Ali Attestasiya Komissiyası </strong><br>
+					&hellip; [AAK ən uyğun izahlı mətni əlavə edə bilər].
+					</div>
+					<textarea name="report[content_4]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>5. Özünüqiymətləndirmə hesabatı</h4>
+						Bu bölmədə özünüqiymətləndirmə prosesinin təsviri, ÖQH-a ümumi baxış və məzmununun qiymətləndirilməsi daxildir.
+						
+					</div>
+					<textarea name="report[content_5]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>6. Sahə səfəri</h4>
+						Bu bölmə sahə səfərinin fəaliyyətinin xülasəsini və ümumi müsahibə verənlərin (müsahibə verənlərin xüsusi siyahısı əlavədədir) siyahısını təqdim edir. Bu boşluq yayımlanmadan əvvəl silinməlidir.
+						
+					</div>
+					<textarea name="report[content_6]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>7. Tədqiqat Proqramı</h4>
+						<p>Elmi m&uuml;əssisə (təşkilat) milli prioritetləri nəzərə alan, məqsəd və prioritetləri, konkret hədəfləri və gələcək perspektivləri &ouml;z&uuml;ndə ehtiva edən strateji y&ouml;n&uuml;ml&uuml; qısa proqrama əsaslanaraq araşdırma aparır.</p>
+						<em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir. </em><em>Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir</em><em>. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>tam yerinə yetirmək &uuml;&ccedil;&uuml;n qismən uyğunluq və şərtlərin yerinə yetirilməsi &uuml;&ccedil;&uuml;n təklif,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər.</em>
+						
+					</div>
+					<textarea name="report[content_7]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>8. Tədqiqat fəaliyyəti</h4>
+						<p>Elmi m&uuml;əssisə (təşkilat) milli və beynəlxalq əhəmiyyətli tədqiqatlar aparır.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlillər reytinq şkalası ilə təhlil edilməlidir.</em></p>
+						<ol start="4">
+						<li>&Ccedil;ox yaxşı</li>
+						</ol>
+						<p>M&uuml;əssisə g&uuml;cl&uuml; beynəlxalq iştirak&ccedil;ıdır. Tədqiqat orijinallıq və əhəmiyyət baxımından &ccedil;ox y&uuml;ksək keyfiyyətdədir. Beynəlxalq akademik cəmiyyətin marağını cəlb etmək və ən sərt nəşr standartları olan beynəlxalq nəşriyyat&ccedil;ı və ya jurnallar tərəfindən nəşr edilmək potensialına malikdir.</p>
+						<ol start="3">
+						<li>Yaxşı</li>
+						</ol>
+						<p>M&uuml;əssisə beynəlxalq səviyyədə tanınan g&uuml;cl&uuml; beynəlxalq iştirak&ccedil;ıdır. Ekspertlərin qiymətləndirməsində m&uuml;əssisə tərəfindən aparılan araşdırmaların əhəmiyyəti ş&uuml;bhəsizdir. Beynəlxalq səviyyədə tanınmış nəşriyyat&ccedil;ı və ya jurnallar bu səviyyədəki əsərləri dərc edə bilərlər.</p>
+						<ol start="2">
+						<li>Kafi</li>
+						</ol>
+						<p>M&uuml;əssisə qənaətbəxş milli iştirak&ccedil;ıdır. Beynəlxalq akademik ictimaiyyət, m&uuml;əssisənin apardığı tədqiqatın əhəmiyyətini məqbul hesab edir. Milli səviyyədə tanınmış naşir və ya jurnallar bu səviyyədəki əsərləri dərc edə bilərlər.</p>
+						<ol>
+						<li>Zəif/pis</li>
+						</ol>
+						<p>M&uuml;əssisə zəif milli iştirak&ccedil;ıdır. M&uuml;əssisə tərəfindən aparılan araşdırmalar, nadir hallarda yeni elmi kəşflər ehtiva edir. M&uuml;əssisənin tədqiqat profili a&ccedil;ıq şəkildə milli xarakter daşıyır, yəni m&uuml;əssisə elmi ictimaiyyətin beynəlxalq m&uuml;zakirələrində iştirak etmir. Əsasən, beynəlxalq tədqiqat tendensiyalarının Latviyada tətbiqinə y&ouml;nəlib.</p>
+						<p><em>Standarta yanaşma və uyğunluq səviyyəsi baxımından</em><em> b&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>qiymət 4 və 3 olduqda tam uyğunluq,</li>
+						<li>qiymət 2 olduqda qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>qiymət 1 olduqda uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em><em>.</em>
+						
+					</div>
+					<textarea name="report[content_8]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>9. Tədqiqat Nəticəsi</h4>
+						<p>Elm m&uuml;əssisə (təşkilat) &ouml;lkədə və xaricdə sosial, mədəni, iqtisadi, ekoloji və siyasi proqresə əhəmiyyətli t&ouml;hfələr verir.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>
+						
+					</div>
+					<textarea name="report[content_9]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>10. İnsan resursları</h4>
+						<p>Elmi m&uuml;əssisədə (təşkilatda), tədqiqat proqramı və gələcək perspektivləri həyata ke&ccedil;irmək &uuml;&ccedil;&uuml;n ixtisas, profil, say və tədqiqat fəaliyyəti baxımından uyğun olan elmi iş&ccedil;ilər fəaliyyət g&ouml;stərirlər. Elmi m&uuml;əssisədə (təşkilatda), tədqiqat proqramının həyata ke&ccedil;irilməsini asanlaşdırmaq &uuml;&ccedil;&uuml;n kifayət qədər və uyğun ixtisaslı inzibati və idarəetmə iş&ccedil;iləri də fəaliyyət g&ouml;stərirlər.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>
+						
+					</div>
+					<textarea name="report[content_10]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>11. İnfrastruktur</h4>
+						<p>Elmi m&uuml;əssisə (təşkilat), tədqiqat proqramını və gələcək perspektivləri həyata ke&ccedil;irmək &uuml;&ccedil;&uuml;n uyğun olan ən m&uuml;asir material və rəqəmsal infrastrukturla təchiz edilmişdir.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>
+												
+					</div>
+					<textarea name="report[content_11]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>12. Maliyyə resursları</h4>
+						<p>Elmi m&uuml;əssisə (təşkilat) tədqiqat proqramını və gələcək perspektivləri həyata ke&ccedil;irmək &uuml;&ccedil;&uuml;n kifayət qədər maliyyələşdirilir.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_12]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>13. Tədqiqat mühiti</h4>
+						<p>Elmi m&uuml;əssisə (təşkilat) tədqiqat proqramını və gələcək perspektivləri həyata ke&ccedil;irmək &uuml;&ccedil;&uuml;n kifayət qədər maliyyələşdirilir.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_13]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>14. Elmi rəhbərlik və dəstək</h4>
+						<p>Elmi m&uuml;əssisə (təşkilat) tədqiqat proqramını və gələcək perspektivləri həyata ke&ccedil;irmək &uuml;&ccedil;&uuml;n kifayət qədər maliyyələşdirilir.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_14]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>15. İşçi heyəti</h4>
+						<p>Elmi müəssisədə (təşkilatda), tədqiqat proqramını həyata keçirmək üçün ixtisas, profil, say və tədqiqat fəaliyyəti baxımından uyğun olan elmi işçilər fəaliyyət göstərirlər. Elmi müəssisədə (təşkilatda) kifayət qədər və uyğun ixtisaslı inzibati və idarəetmə işçiləri də fəaliyyət göstərirlər.</p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_15]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>16. Keyfiyyət təminatı</h4>
+						<p>Elmi müəssisə (təşkilat) doktorantura proqramlarının akkreditasiya meyarlarına və qaydaların qanuni tələblərinə cavab verdiyini qiymətləndirmək və doktorantura təhsilinin, xüsusən də tədqiqat çərçivəsinin və elmi rəhbərliyin yüksək keyfiyyətdə olmasını təmin etmək üçün təsirli keyfiyyət təminatı vasitələrini tətbiq edir. </p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_16]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>17. İdarəetmə və nəzarət</h4>
+						<p>Elmi müəssisə (təşkilat) doktorantura proqramlarının akkreditasiya meyarlarına və qaydaların qanuni tələblərinə cavab verdiyini qiymətləndirmək və doktorantura təhsilinin, xüsusən də tədqiqat çərçivəsinin və elmi rəhbərliyin yüksək keyfiyyətdə olmasını təmin etmək üçün təsirli keyfiyyət təminatı vasitələrini tətbiq edir. </p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_17]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>18. Daxili keyfiyyət təminatı</h4>
+						<p>Elmi müəssisə (təşkilat) doktorantura proqramlarının akkreditasiya meyarlarına və qaydaların qanuni tələblərinə cavab verdiyini qiymətləndirmək və doktorantura təhsilinin, xüsusən də tədqiqat çərçivəsinin və elmi rəhbərliyin yüksək keyfiyyətdə olmasını təmin etmək üçün təsirli keyfiyyət təminatı vasitələrini tətbiq edir. </p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_18]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>19. Akademik dürüstlük</h4>
+						<p>Elmi müəssisə (təşkilat) doktorantura proqramlarının akkreditasiya meyarlarına və qaydaların qanuni tələblərinə cavab verdiyini qiymətləndirmək və doktorantura təhsilinin, xüsusən də tədqiqat çərçivəsinin və elmi rəhbərliyin yüksək keyfiyyətdə olmasını təmin etmək üçün təsirli keyfiyyət təminatı vasitələrini tətbiq edir. </p>
+						<p><em>Mətnin bu hissəsində, sahə səfəri zamanı yazılı sənəd (&Ouml;QH və s.) və ya şifahi ifadələr olan mənbələrə a&ccedil;ıq istinad edilməklə, standarta uyğunluğuna dair dəlil verilməlidir</em><em>. Bu dəlil standarta yanaşma və uyğunluq səviyyəsi ilə bağlı meyar və g&ouml;stəricilərdən istifadə edilərək təhlil edilməlidir. B&ouml;lmə qiymətləndirmə ilə başa &ccedil;atır:</em></p>
+						<ul>
+						<li>tam uyğunluq,</li>
+						<li>qismən uyğunluq və tam uyğunluq &uuml;&ccedil;&uuml;n şərtlərin yerinə yetirilməsi təklifi,</li>
+						<li>uyğunsuzluq.</li>
+						</ul>
+						<em>Ekspert şurası tərif və t&ouml;vsiyələr əlavə edə bilər</em>					
+					</div>
+					<textarea name="report[content_19]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>20. Əlavə müşahidələr <span style="font-size: 13px; color: brown;">(məcburi deyil)</span></h4>
+						<p>Bu bölmədə ekspert şurası təqdim etmək istədiyi hər hansı əlavə fikri və ya inkişaf tövsiyələrini öz hesabatına daxil edə bilər. Əgər məlumatlar genişdirsə, onlar hesabatın bu əlavə hissəsinə və ya qısadırsa nəticələrin bir hissəsi olaraq əlavə edilə bilər.</p>			
+					</div>
+					<textarea name="report[content_20]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>21. Nəticələr</h4>
+						<p>Bu bölmədə ekspert şurası ümumi nəticələri təqdim edə bilər. Hər halda, bütün qiymətləndirmələrin siyahısı təqdim edilməlidir.</p>			
+					</div>
+					<textarea name="report[content_21]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>22. Təriflərin xülasəsi</h4>
+						<p>[mövcuddursa təriflərin siyahısı]</p>			
+					</div>
+					<textarea name="report[content_22]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>23. Tövsiyələrin xülasəsi</h4>
+						<p>[mövcuddursa tövsiyələrin siyahısı]</p>			
+					</div>
+					<textarea name="report[content_23]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>24. Qərar üçün AAK-a tövsiyə</h4>
+						<p>Bu b&ouml;lmədə ekspert şurası aşağıdakı qərarlardan biri &uuml;&ccedil;&uuml;n &ouml;z t&ouml;vsiyəsini verəcəkdir:</p>
+						<ul>
+						<li><em>M&uuml;raciət edən m&uuml;əssisənin 6 il m&uuml;ddətinə akkreditasiya olunması.</em></li>
+						<li><em>M&uuml;raciət edən m&uuml;əssisənin 2 il ərzində yerinə yetirilməsi şərtilə 6 il m&uuml;ddətinə akkreditasiya olunması.</em></li>
+						<li><em>Akkreditasiyadan geri g&ouml;t&uuml;r&uuml;lməsi.</em></li>
+						</ul>
+						<em>Şərtlər altında akkreditasiya edildikdə ekspert şurası şərtləri təklif edir.</em>			
+					</div>
+					<textarea name="report[content_24]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+					<div class="reportcontent">
+						<div class="form-group">
+						<h4>25. Əlavə</h4>
+						<p>Sahə səfərinin proqramı</p>			
+					</div>
+					<textarea name="report[content_25]" id="q" class="q" cols="30" rows="5"></textarea>
+					</div>
+
+
+
+				<div style="display: flex; justify-content: center; margin-top: 10px;" class="form-group">
+					<button class="btn btn-large btn-primary btn-block">Hesabatı tamamla</button>
+				</div>
+			</form>
+		
+		
+	</div>
+</div>
+
+
+<div class="footer">
+	<%- include('../partials/footer.ejs') %> 
+</div>

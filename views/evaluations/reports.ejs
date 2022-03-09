@@ -1,0 +1,137 @@
+<%- include('../partials/header.ejs') %> 
+<section class="container">
+    <h3 style="text-align:center; font-weight: 900;"><%= evaluation.name %></h3><p style="text-align: center;">adlı müəssisənin yekun hesabatı</p> 
+    
+        <% evaluation.reports.forEach(function(report){ %>
+            <div class="allcontent">
+            <div class="reportcontent">
+                <div class="rtitle"><strong>1. Xülasə</strong> <hr></div>
+                <div class="rcontent"><%-report.content_1%></div>
+            </div>   
+            <div class="reportcontent">
+                <div class="rtitle"><strong>2. Giriş</strong> <hr></div>
+                <div class="rcontent"><%-report.content_2%></div>
+            </div>   
+            <div class="reportcontent">
+                <div class="rtitle"><strong>3. Akkreditasiya proseduru</strong> <hr></div>
+                <div class="rcontent"><%-report.content_3%></div>
+            </div>   
+            <div class="reportcontent">
+                <div class="rtitle"><strong>4. Hüquqi məlumat</strong> <hr></div>
+                <div class="rcontent"><%-report.content_4%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>5. Özünüqiymətləndirmə hesabatı</strong> <hr></div>
+                <div class="rcontent"><%-report.content_5%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>6. Sahə səfəri</strong> <hr></div>
+                <div class="rcontent"><%-report.content_6%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>7. Tədqiqat Proqramı</strong> <hr></div>
+                <div class="rcontent"><%-report.content_7%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>8. Tədqiqat fəaliyyəti</strong> <hr></div>
+                <div class="rcontent"><%-report.content_8%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>9. Tədqiqat Nəticəsi</strong> <hr></div>
+                <div class="rcontent"><%-report.content_9%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>10. İnsan resursları</strong> <hr></div>
+                <div class="rcontent"><%-report.content_10%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>11. İnfrastruktur</strong> <hr></div>
+                <div class="rcontent"><%-report.content_11%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>12. Maliyyə resursları</strong> <hr></div>
+                <div class="rcontent"><%-report.content_12%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>13. Tədqiqat mühiti</strong> <hr></div>
+                <div class="rcontent"><%-report.content_13%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>14. Elmi rəhbərlik və dəstək</strong> <hr></div>
+                <div class="rcontent"><%-report.content_14%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>15. İşçi heyəti</strong> <hr></div>
+                <div class="rcontent"><%-report.content_15%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>16. Keyfiyyət təminatı</strong> <hr></div>
+                <div class="rcontent"><%-report.content_16%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>17. İdarəetmə və nəzarət</strong> <hr></div>
+                <div class="rcontent"><%-report.content_17%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>18. Daxili keyfiyyət təminatı</strong> <hr></div>
+                <div class="rcontent"><%-report.content_18%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>19. Akademik dürüstlük</strong> <hr></div>
+                <div class="rcontent"><%-report.content_19%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>20. Əlavə müşahidələr</strong> <hr></div>
+                <div class="rcontent"><%-report.content_20%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>21. Nəticələr</strong> <hr></div>
+                <div class="rcontent"><%-report.content_21%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>22. Təriflərin xülasəsi</strong> <hr></div>
+                <div class="rcontent"><%-report.content_22%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>23. Tövsiyələrin xülasəsi</strong> <hr></div>
+                <div class="rcontent"><%-report.content_23%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>24. Akademik dürüstlük</strong> <hr></div>
+                <div class="rcontent"><%-report.content_24%></div>
+            </div>  
+            <div class="reportcontent">
+                <div class="rtitle"><strong>25. Əlavə</strong> <hr></div>
+                <div class="rcontent"><%-report.content_25%></div>
+            </div>  
+            <div style="text-align: center; margin-top: 5px;" class="comment-author"><strong><%= report.author.fullname%></strong> tərəfindən&nbsp;[<%=report.createdAt.toLocaleString("en-Gb").slice(0,17)%>] tarixində göndərildi</div> 
+        </div>
+       
+        
+        
+     <%}) %> 
+     <button type="submit" class="pdfbutton btn btn-outline-success">Yekun hesabatı yüklə</button>
+       
+</section>
+<script src="/ckeditor/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'></script>
+  <!-- html-to-pdfmake file: -->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
+<script>
+ var pdfbutton = document.querySelector('.pdfbutton')
+  pdfbutton.addEventListener('click', ()=>{
+    var html = document.querySelector('.allcontent').innerHTML
+   var val = htmlToPdfmake(html);
+   var data = {content:val}
+   pdfMake.createPdf(data).download()
+  })
+   
+  
+
+</script>        
+
+<%- include('../partials/footer.ejs') %> 

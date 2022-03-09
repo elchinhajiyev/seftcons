@@ -1,0 +1,23 @@
+<%- include('../partials/header.ejs') %> 
+<div class="commentback">
+<h2><%=evaluation.name%><p style="text-align: center; font-size: 25px; font-weight: 700;">Qeydlər</p></h2>
+
+</div>
+<section class="container">
+        <% evaluation.comments.forEach(function(comment){ %>
+            <div class="comment_box">
+         <div class="comment-content"><p> <%- comment.content%> </p></div>
+         <div class="comment-author"><strong><%- comment.author.fullname%></strong>&nbsp;[<%=comment.createdAt.toLocaleString("en-Gb").slice(0,17)%>]</div> 
+     </div>   <%}) %> 
+       
+</section>
+<script src="/ckeditor/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>
+<script type="text/javascript">
+		
+	
+    CKEDITOR.replace('evaluation[question_18]')
+</script>
+
+
+<%- include('../partials/footer.ejs') %> 

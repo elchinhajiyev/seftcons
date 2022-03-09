@@ -6,18 +6,22 @@ const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart();
 LocalStrategy = require('passport-local');
 const bodyParser = require('body-parser');
+const pdf = require('html-pdf');
+const options = {format:'A4'};
 var multer = require('multer');
-var fs = require('fs')
-var path = require('path')
-var crypto = require('crypto')
+var fs = require('fs');
+var path = require('path');
+var crypto = require('crypto');
 const Evaluation = require('./models/evaluationModel');
 const Comment = require('./models/commentModel');
 const User =  require('./models/userModel');
+const Report =  require('./models/reportModel');
 const cerezData = require('./cerez');
 const { find, db } = require('./models/evaluationModel');
 const res = require('express/lib/response');
-const { isBuffer } = require('lodash');
+const { isBuffer, result } = require('lodash');
 const app = express();
+const {authPages , ROLE, authPagesTeamLeader, authAdmin} = require('./middlewares')
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.static(__dirname+'/public'));
@@ -48,6 +52,9 @@ var storage = multer.diskStorage({
 })
 var upload = multer({storage:storage});
 
+//roles
+
+
 
 //passport config
 app.use(require('express-session')({
@@ -74,18 +81,18 @@ app.use(function(req,res,next){
 //=========Auth ROUTES=========//
 //signup
 app.get('/signup', function(req,res){
-    res.render('signup');
+    res.render('/');
 });
 
 app.post('/signup', function(req,res){
-    let newUser = new User({username:req.body.username, fullname: req.body.fullname, phone: req.body.phone});
+    let newUser = new User({username:req.body.username, fullname: req.body.fullname, phone: req.body.phone, role: req.body.role, evaluationid: req.body.evaluationid});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
             console.log(err)
-            return res.render('signup')
+            return res.render('login')
         }
          passport.authenticate('local')(req,res, function(){
-            res.redirect('evaluations') 
+            res.redirect('/') 
          })  
     })
 });
@@ -95,8 +102,10 @@ app.get('/login', function(req,res){
     res.render('login');
 });
 
+
+
 app.post('/login', passport.authenticate("local",{
-successRedirect: "/evaluations",
+successRedirect: "/home",
 failureRedirect: "/login",
 }), function (req,res){
 });
@@ -138,28 +147,50 @@ res.render("userProfile");
 
 //============AUTH ROUTES=================//
 
-app.get('/',  function (req, res) {
-    console.log(req.user)
-    res.render('login');
+app.get('/', userIsLogin,  function (req, res) {
+    res.render('home');
 });
 
+app.get('/home', userIsLogin, function (req, res) {
+    res.render('home');
+});
+
+
+app.get('/thanks', function(req,res){
+    res.render('thanks');
+});
 //====================EVALUATION ROUTES==================//
 
 
-app.get('/evaluations', userIsLogin, userIsLogin, function (req, res) {
-    Evaluation.find({}, function (err, evaluationDB) {
-        if (err) {
-            console.log(err)
-        } else {
-            res.render("evaluations/evaluations", { evaluations: evaluationDB });
-        }
+
+
+/* app.get('/evaluations', userIsLogin, function(req,res){
+    Evaluation.find(function(err, findevaluation){
+        var currentUser=req.user
+       if(currentUser.evaluationid===findevaluation._id){
+        res.render('evaluations/evaluations', {evaluation : findevaluation })
+       } 
     });
 });
-app.get('/evaluations/add', userIsLogin, function (req, res) {
+ */
+
+
+app.get('/evaluations',  userIsLogin,  (req, res)=> {
+    Evaluation.find().sort({createdAt:-1})
+       .then((result)=>{
+        res.render("evaluations/evaluations", { evaluations: result });
+       })
+       .catch((err)=>{
+           console.log(err);
+       })
+});
+
+
+app.get('/evaluations/add', userIsLogin,  function (req, res) {
     res.render("evaluations/add") 
 });
 
-app.post('/evaluations', (req,res)=>{
+app.post('/evaluations', userIsLogin, (req,res)=>{
   var name = req.body.name;
   var question_1 = req.body.question_1;
   var question_2 = req.body.question_2;
@@ -179,7 +210,7 @@ app.post('/evaluations', (req,res)=>{
   var question_16 = req.body.question_16;
   var question_17 = req.body.question_17;
   var question_18 = req.body.question_18;
-  var author = {id: req.user._id, username: req.user.username, username: req.user.fullname};
+  var author = {id: req.user._id, username: req.user.username, fullname: req.user.fullname, role: req.user.role, evaluationid: req.user.evaluationid,  field: req.user.field };
   var newevaluation = {
       name: name, 
       question_1:question_1, 
@@ -203,16 +234,20 @@ app.post('/evaluations', (req,res)=>{
       author: author,
     }
     Evaluation.create(newevaluation, function(err, createdEvaluation){
+        var currentUser=req.user
         if(err){
             console.log(err);
+            res.redirect('/')
         }else{
-            res.redirect('/evaluations')
+            currentUser.evaluations.push(createdEvaluation)
+            currentUser.save();
+            res.redirect('/thanks')
         }
         
     })
 });
 
-app.get('/evaluations/:id', function(req,res){
+app.get('/evaluations/:id', userIsLogin, function(req,res){
     Evaluation.findById(req.params.id).populate("comments").exec(function(err, findevaluation){
         if(err){
             console.log(err);
@@ -223,9 +258,88 @@ app.get('/evaluations/:id', function(req,res){
 
 });
 
+ app.get('/evaluations/:id/result', userIsLogin, function(req,res){
+    Evaluation.findById(req.params.id).populate("comments").exec(function(err, findevaluation){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('evaluations/result', {evaluation: findevaluation});
+        }
+    });
+
+}); 
+
+
+
+
+
+app.get('/evaluations/:id/comments', userIsLogin, function(req,res){
+    Evaluation.findById(req.params.id).populate("comments").sort({createdAt:-1}).exec(function(err, findevaluation){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('evaluations/comments', {evaluation: findevaluation});
+        }
+    });
+
+});
 
 
 //====================EVALUATION ROUTES==================//
+
+
+
+
+//====================Report ROUTES==================//
+
+
+app.get('/evaluations/:id/reports/add', userIsLogin,  function(req,res){
+    Evaluation.findById(req.params.id, function(err, findevaluation){
+       if(err){
+           console.log(err);
+       } else{
+           res.render('reports/add', {evaluation : findevaluation });
+       }
+    });
+});
+
+
+app.post('/evaluations/:id/reports', userIsLogin, function(req,res){
+    Evaluation.findById(req.params.id, function(err, findevaluation){
+       if(err){
+           console.log(err);
+       } else{
+           Report.create(req.body.report, function(err, report ){
+               report.author.id = req.user._id;
+               report.author.username = req.user.username;
+               report.author.fullname = req.user.fullname;
+               report.save();
+               findevaluation.reports.push(report)
+               findevaluation.save();
+               res.redirect("/thanks")
+               /* res.redirect("/evaluations/"+findevaluation._id) */
+               
+
+           })
+       }
+    });
+});
+
+app.get('/evaluations/:id/reports', userIsLogin, function(req,res){
+    Evaluation.findById(req.params.id).populate("reports").exec(function(err, findevaluation){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('evaluations/reports', {evaluation: findevaluation});
+        }
+    });
+
+});
+
+
+
+
+//====================Report ROUTES==================//
 
 
 
@@ -241,7 +355,7 @@ Evaluation.findById(req.params.id, function(err, findevaluation){
 })
 });
 
-app.put('/evaluations/:id', userControl,  function (req,res) {
+app.put('/evaluations/:id', userControl, userIsLogin, function (req,res) {
 Evaluation.findByIdAndUpdate(req.params.id, req.body.evaluation, function(err, updatedevaluation){
     if (err) {
         console.log(err)
@@ -256,7 +370,7 @@ Evaluation.findByIdAndUpdate(req.params.id, req.body.evaluation, function(err, u
 
 //==============================COMMENT ROUTES==========================//
 
-app.get('/evaluations/:id/comments/add', function(req,res){
+app.get('/evaluations/:id/comments/add', userIsLogin, function(req,res){
     Evaluation.findById(req.params.id, function(err, findevaluation){
        if(err){
            console.log(err);
@@ -321,12 +435,49 @@ app.post('/upload', multipartMiddleware, (req,res)=>{
 
 //==============================UPLOAD ROUTES==========================//
 
+//==============================USER ROUTES==========================//
+
+app.get('/users', userIsLogin, authPages(ROLE.ADMIN),(req, res)=> {
+    User.find().sort({field:-1})
+       .then((result)=>{
+        res.render("users", { users: result });
+       })
+       .catch((err)=>{
+           console.log(err);
+       })
+});
+
+app.get('/notaccess', userIsLogin, (req,res)=>{
+    res.render('notaccess')
+});
+
+app.get('/users/:id/edit', userIsLogin, authPages(ROLE.ADMIN), function(req,res){
+    User.findById(req.params.id, function(err, finduser){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('evaluations/useredit', {user: finduser});   
+        }
+    });
+    })
+    
 
 
+app.put('/users/:id', userIsLogin, authPages(ROLE.ADMIN), function (req,res) {
+    User.findByIdAndUpdate(req.params.id, req.body.user, function(err, updateduser){
+        if (err) {
+            console.log(err)
+        }else{
+                res.redirect('/users') 
+      
+        }
+        })
+        })
+        
 
+    
 
-
-
+//==============================USER ROUTES END==========================//
 
 /* app.post('/evaluations', (req,res)=>{
     const evaluation = new Evaluation(req.body)

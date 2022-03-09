@@ -101,6 +101,11 @@ var evaluationSchema = new mongoose.Schema({
         ref: "Comment"
     }],
 
+    reports:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Report"
+    }],
+
     author: {
         id:{
             type: mongoose.Schema.Types.ObjectId,
@@ -108,6 +113,7 @@ var evaluationSchema = new mongoose.Schema({
         },
         username: String,
         fullname: String,
+        role: String,
     },
 
     },{timestamps:true});

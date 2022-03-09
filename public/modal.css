@@ -1,92 +1,61 @@
-.popupcontainer {
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modal1 {
     position: fixed;
-    pointer-events: none;
-    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid coral;
+    border-radius: 5px;
+    z-index: 100;
+    background-color: white;
+    width: 600px;
+    max-width: 80%;
+  }
+  
+  .modal1.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .modal1-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, .3)
+  }
+  .modal1-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .modal1-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .modal1-body {
+    padding: 10px 15px;
+    font-size: 15px;
+    text-align: justify;
+  }
+  
+  #overlay {
+    position: fixed;
+    opacity: 1;
+    transition: 200ms ease-in-out;
     top: 0;
     left: 0;
-    height: 100vh;
-    width: 100vw;
-    transition: 0.2s ease-in;
-}
-
-.popup {
-    background-color: #fff;
-    width: 700px;
-    max-width: 100%;
-    padding: 10px 30px;
-    border-radius: 5px;
-    text-align: center;
-    
-
-}
-
-.popupcontainer.show{
-    pointer-events: auto;
-    opacity: 1;
-}
-
-.popup h2{
-    margin: 0;
-    opacity: 0.7;
-    font-weight: 600;
-}
-
-.popup p{
-    font-size: 12px;
-    opacity: 0.7px;
-    text-align: justify;
-}
-
-
-
-
-.c-container {
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
     pointer-events: none;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    transition: 0.2s ease-in;
-}
-
-.commentbox {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: #fff;
-    width: 700px;
-    max-width: 100%;
-    padding: 10px 30px;
-    border-radius: 5px;
-    text-align: center;
-    
-
-}
-
-.c-container.showbox{
-    pointer-events: auto;
+  }
+  
+  #overlay.active {
     opacity: 1;
-}
-
-.commentbox h2{
-    margin: 0;
-    opacity: 0.7;
-    font-weight: 600;
-}
-
-.commentbox p{
-    font-size: 12px;
-    opacity: 0.7px;
-    text-align: justify;
-}
+    pointer-events: all;
+  }

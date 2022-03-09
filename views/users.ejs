@@ -1,0 +1,73 @@
+<%- include('./partials/header.ejs') %> 
+<div class="evbackround">
+   <div class="content">
+       <div class="header"
+           style=" color: azure; display: flex; justify-content: center; align-items: center; padding-top: 50px; ">
+           <h1 style="font-weight: 900">İstifadəçi siyahısı</h1>
+       </div>
+       <div class="button"
+           style="display:flex; justify-content: center; gap: 5px; padding-bottom: 15px; z-index: 1;">
+       </div>
+   </div>
+</div>
+
+<div class="usercontainer">
+  
+
+      <table class="table table-striped">
+         <thead style="text-align: center;">
+           <tr>
+             <th scope="col">Qeydiyyat tarixi</th>
+             <th scope="col">Ad Soyad</th>
+             <th scope="col">E-poçt</th>
+             <th scope="col">Mobil nömrə</th>
+             <th scope="col">Vəzifə</th>
+             <th scope="col">Sahə üzrə expert</th>
+             <th scope="col">Təyinat</th>
+             <th style="text-align: center;" scope="col">Redaktə</th>
+           </tr>
+         </thead>
+         <tbody style="text-align: center;">
+            <% users.forEach(user=>{ %>
+           <tr>
+         
+             <th scope="row"><%= user.createdAt.toLocaleString("en-Gb").slice(0,10)%></th>
+             <td><%= user.fullname%></td>
+             <td><%= user.username%></td>
+             <td><%= user.phone%></td>
+             <td><%= user.role%></td>
+             <td><%= user.field%></td>
+             <td ><span id="teyinat"><%= user.evaluationid%></span></td>
+             <td><a style="display: flex; justify-content: center; align-items: center;" href="/users/<%=user._id%>/edit" target="_blank"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a></td>
+            
+            </tr>
+            <% }) %>
+         
+         </tbody>
+       </table>
+       <script>
+       /*  var teyinat = document.querySelectorAll('#teyinat')
+        for (i=0; i<teyinat.length; i++){
+          evaluations.forEach(evaluation=>{
+            if(teyinat[i]===evaluation.id){
+              teyinat[i].innerHTML = ('Yekun hesabat')
+            }
+          })
+           
+        } */
+       /*  var teyinat = document.querySelectorAll('#teyinat')
+        for (i=0; i<teyinat.length; i++){
+          evaluations.forEach(evaluation=>{
+            if(teyinat[i].innerHTML === evaluation._id){
+            teyinat[i].innerHTML = ('Müəssisə aktivdir')
+          }else{
+            teyinat[i].innerHTML = ('Müəssisə aktiv deyildir')
+          }
+          })              
+            } */
+      
+           
+      
+    </script>
+ 
+   </div>

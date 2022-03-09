@@ -1,38 +1,69 @@
 <%- include('../partials/header.ejs') %>
+
+<div class="evbackroundafter">
+    
     <div class="evbackround">
         <div class="content">
-            <div class="header"
-                style=" color: azure; display: flex; justify-content: center; align-items: center; padding-top: 50px;">
-                <h1>Müəssisələrin özünüqiymətləndirmə hesabatı</h1>
+         <div class="header"
+           
+                style=" color: azure; display: flex; justify-content: center; align-items: center; padding-top: 50px; ">
+                <h1 style="font-weight: 900">Müəssisələrin özünüqiymətləndirmə hesabatları</h1>
             </div>
-            <div class="button"
+            <% if( currentUser.role=== "admin"){%>
+                <div class="button"
                 style="display:flex; justify-content: center; gap: 5px; padding-bottom: 15px; z-index: 1;">
-                <button class="btn btn-secondary">Hesabatlar</button>
-                <button class="btn btn-secondary" style="z-index: 5;">İstifadəçi siyahısı</button>
-                <button class="btn btn-secondary " style="z-index: 5;">Expertlər</button>
+                <a href="/users" target="blank"><button class="btn btn-secondary" style="position: relative; z-index: 5;">İstifadəçi siyahısı</button></a>
             </div>
+            <% }%>
+            
         </div>
+    </div>
     </div>
     <div class="container" style="margin-bottom: 10px;">
-        <div class="box-container">
+       
+        <div class="box-container" >
             <% evaluations.forEach(evaluation=>{ %>
+                <% if( currentUser.role === "admin" || evaluation.name===currentUser.evaluationid){%>
         </div>
-        <div class="box">
-            <li style="text-decoration: none; list-style: none; margin-left: 10px; display: flex; justify-content: space-between; align-items: center; padding-right: 10px;">
+        <div class="box "  >
+            <li style="text-decoration: none; list-style: none; margin-left: 10px; display: flex;  align-items: center; padding-right: 10px;">
              <a href="/evaluations/<%=evaluation._id%>" >
-                <svg
-                xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path
-                    d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
-            </svg>&nbsp;&nbsp;<%=evaluation.name%> 
-                </a>
-                <div class="evaluationauthor" style="display: flex; justify-content: end;"><%=evaluation.author.username%></div>
-            </li>
-            
+                <i class="bi bi-mortarboard-fill"></i>&nbsp;<span data-tab-target="#name" id="text1"><%=evaluation.name%> </span> 
+                </a>  <span style="display: flex; justify-content: center; font-size: 12px;"> <%=evaluation.createdAt.toLocaleString("en-Gb").slice(0,17)%></span> 
+          </li>
+          <% evaluation.reports.forEach(function(report){ %>
+            <a style="font-size: 12px; margin-left: auto;" href="/evaluations/<%=evaluation._id%>/reports" target="_blank"><span style="color: green; " id="reportid"><%= report._id %></span></a> 
+          <% }) %> 
+          <% } %> 
             <% }) %>
+            
                 </ul>
-        </div>
+                
+              
     </div>
+</div>    
+<script>
 
+
+/*     function copy(copyId){
+    let inputElement = document.createElement("input");
+    inputElement.type = "text";
+    let copyText = document.getElementById(copyId).innerHTML;
+    inputElement.value = copyText;
+    document.body.appendChild(inputElement);
+    inputElement.select();
+    document.execCommand('copy');
+    document.body.removeChild(inputElement);
+} */
+
+
+</script>
+<script>
+
+  
+    var reportId = document.querySelectorAll('#reportid')
+    for (i=0; i<reportId.length; i++){
+        reportId[i].innerHTML = ('<center><i class="bi bi-check-lg"></i><p>Yekun hesabat</p>')
+    }
+</script>
     <%- include('../partials/footer.ejs') %>

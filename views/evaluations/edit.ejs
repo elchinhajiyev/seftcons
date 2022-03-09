@@ -1,18 +1,20 @@
 <%- include('../partials/header.ejs') %> 
 <section class="container">
 
-    <div class="institution">   <h2><%=evaluation.name%> </h2><p>üçün artırılmış əlavə bölmə<p></div>
+    <div class="institution">   <h2><%=evaluation.name%> </h2><p>üçün artırılmış əlavə bölmə<p>
     <form action="/evaluations/<%=evaluation._id%>?_method=PUT" method="post">
-        <b>Artırılmış əlavə bölmə </b>
+        <p style="font-size: 13px;">
+            <b>Artırılmış əlavə bölmə:</b>
         <i>Hesabatı daxil edərkən unudulan və ya tələb olunan məlumatları daxil edilməsi.</i>
-        <textarea name="evaluation[question_18]" id="q2" class="questionedit" cols="30" rows="5"></textarea>
-        
-        <div class="mb-3">
-            <input class="form-control" type="file" multiple id="formFile">
-          </div>
-
-         <input type="submit" >
-    </form>
+        </p>
+        <textarea style="width: 100%;" name="evaluation[question_18]" id="q2" class="questionedit" cols="30" rows="5"></textarea>
+        <div class="editfoot">
+            <div class="button"><input class="btn btn-warning btn-sm" type="submit" value="Göndər" ></div>
+        <div class="editauthor">[Göndərən: <%=evaluation.author.fullname%>] <a href="mailto:<%=evaluation.author.username%>]"> [E-poçt: <%=evaluation.author.username%>]</a></div>
+        </div>
+    
+        </form>
+    </div>
 </section>
 <script src="/ckeditor/ckeditor.js"></script>
 <script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>

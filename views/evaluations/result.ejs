@@ -1,0 +1,129 @@
+   <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<div  style="display: flex; justify-content: center; margin-top: 10px;" class="button">
+    <button type="submit" class="pdfbutton btn btn-outline-success"> Hesabatı yüklə</button></div>    
+<div style="opacity: 0;" class="centerarea" id="centerarea">
+        <div id="question1" data-tab-content class="question active">
+            <div class="qtitle"><strong>1.Elmi müəssisə (təşkilat): Giriş</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_1%></div>
+        </div>
+        <div id="question2" data-tab-content class="question">
+            <div class="qtitle"><strong>2. Özünüqiymətləndirmə prosesi</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_2%></div>
+            
+        </div>
+        <div id="question3" data-tab-content class="question">
+            <div class="qtitle"><strong>3. Tədqiqat proqramı</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_3%></div>
+            
+        </div>
+
+        <div id="question4" data-tab-content class="question">
+            <div class="qtitle"><strong>4.Tədqiqat fəaliyyəti</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_4%></div>
+           
+        </div>
+
+        <div id="question5" data-tab-content class="question">
+            <div class="qtitle"><strong>5. Tədqiqat nəticəsi</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_5%></div>
+           
+        </div>
+
+        <div id="question6" data-tab-content class="question">
+            <div class="qtitle"><strong>6. İnsan resursları</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_6%></div>
+         
+        </div>
+
+        <div id="question7" data-tab-content class="question">
+            <div class="qtitle"><strong>7. İnfrastruktur</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_7%></div>
+            
+        </div>
+
+        <div id="question8" data-tab-content class="question">
+            <div class="qtitle"><strong>8. Maliyyə resursları</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_8%></div>
+            
+        </div>
+
+        <div id="question9" data-tab-content class="question">
+            <div class="qtitle"><strong>9. Tədqiqat mühiti</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_9%></div>
+            
+        </div>
+
+        <div id="question10" data-tab-content class="question">
+            <div class="qtitle"><strong>10. Elmi rəhbərlik və dəstək</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_10%></div>
+            
+        </div>
+
+        <div id="question11" data-tab-content class="question">
+            <div class="qtitle"><strong>11. İşçi heyyət</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_11%></div>
+           
+        </div>
+
+        <div id="question12" data-tab-content class="question">
+            <div class="qtitle"><strong>12. Keyfiyyət təminatı</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_12%></div>
+            
+        </div>
+
+        <div id="question13" data-tab-content class="question">
+            <div class="qtitle"><strong>13. İdarəetmə və nəzarət</strong> </div>
+            <div class="qcontent"><%-evaluation.question_13%></div>
+           
+        </div>
+        <hr>
+        <div id="question14" data-tab-content class="question">
+            <div class="qtitle"><strong>14. Daxili keyfiyyət təminatı</strong></div>
+            <div class="qcontent"><%-evaluation.question_14%></div>
+        </div>
+        <hr>
+        <div id="question15" data-tab-content  class="question">
+            <div class="qtitle"><strong>15. Akademik dürüstlük</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_15%></div>
+           
+        </div>
+
+        <div id="question16" data-tab-content class="question">
+            <div class="qtitle"><strong>16. Nəticələr</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_16%></div>
+           
+        </div>
+
+        <div id="question17" data-tab-content class="question">
+            <div class="qtitle"><strong>17. Əlavə</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_17%></div>
+           
+        </div>
+
+        <div id="question18" data-tab-content class="question">
+            <div class="qtitle"><strong>18. Əlavə edilmiş bölmə</strong> <hr></div>
+            <div class="qcontent"><%-evaluation.question_18%></div>
+        </div>
+       
+</div>
+
+  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'></script>
+  <!-- html-to-pdfmake file: -->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
+<script>
+  var pdfbutton = document.querySelector('.pdfbutton')
+  pdfbutton.addEventListener('click', ()=>{
+    var html = document.querySelector('.centerarea').innerHTML
+   var val = htmlToPdfmake(html);
+   var data = {content:val}
+   pdfMake.createPdf(data).download()
+  })
+   
+</script>        
+
+<%- include('../partials/footer.ejs') %> 
