@@ -8,53 +8,29 @@ LocalStrategy = require('passport-local');
 const bodyParser = require('body-parser');
 const pdf = require('html-pdf');
 const options = {format:'A4'};
-var multer = require('multer');
 var fs = require('fs');
 var path = require('path');
 var crypto = require('crypto');
-const Evaluation = require('./models/evaluationModel');
-const Comment = require('./models/commentModel');
-const User =  require('./models/userModel');
-const Report =  require('./models/reportModel');
-const cerezData = require('./cerez');
-const { find, db } = require('./models/evaluationModel');
+const Blog = require('./models/blog');
+const Comment = require('./models/comment');
+const User =  require('./models/user');
+const Project =  require('./models/project');
 const res = require('express/lib/response');
 const { isBuffer, result } = require('lodash');
 const app = express();
-const {authPages , ROLE, authPagesTeamLeader, authAdmin} = require('./middlewares')
+const {authPages , ROLE,} = require('./middlewares')
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.static(__dirname+'/public'));
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
-const PORT = process.env.PORT || 27777;
+const PORT = process.env.PORT || 3000;
 
-const dbURL = 'mongodb+srv://dbuser:m0LNAxSPU0pMgSmu@akkreditasiya.n1bzf.mongodb.net/evaluations?retryWrites=true&w=majority'
+const dbURL = 'mongodb+srv://seftdbuser:6PbIlWJrqIo0sPKN@cluster0.hzzlj.mongodb.net/sefdatabase?retryWrites=true&w=majority'
 mongoose.connect(dbURL)
     .then((result) => app.listen(PORT, () => {
         console.log(`Server ${PORT} portunda calisir`);
     }));
-
-/* cerezData(); */
-
-//todo upload storage
-
-var storage = multer.diskStorage({
-    destination: 'public/upload/',
-    filename: function (req,file, cb) {
-        crypto.pseudoRandomBytes(16, function (err, raw) {
-            if(err) return cb(err)
-            cb(null, Math.floor(Math.random()*900000000)+1000000000+path.extname(file.originalname))
-            
-        })
-        
-    }
-})
-var upload = multer({storage:storage});
-
-//roles
-
-
 
 //passport config
 app.use(require('express-session')({
@@ -124,281 +100,195 @@ function userIsLogin(req, res, next){
         res.redirect('/login'); 
 };
 
-function userControl(req, res, next) {
-    if(req.isAuthenticated()){
-        Evaluation.findById(req.params.id, function (err, findevaluation){
-            if (err) {
-                console.log(err);
-            }else{
-                if (findevaluation.author.id.equals(req.user._id)) {
-                    next();
-                    
-                }else{
-                   res.send ('Başqasının məlumatlarını dəyişdirmə icazəniz yoxdur')
-                }
-            }
-        });
-    }
-}
-
-app.get('/user/:id/profile', userIsLogin, function(req,res){
-res.render("userProfile");
-});
 
 //============AUTH ROUTES=================//
 
-app.get('/', userIsLogin,  function (req, res) {
+app.get('/',  function (req, res) {
     res.render('home');
 });
 
-app.get('/home', userIsLogin, function (req, res) {
-    res.render('home');
-});
-
-
-app.get('/thanks', function(req,res){
-    res.render('thanks');
-});
-//====================EVALUATION ROUTES==================//
-
-
-
-
-/* app.get('/evaluations', userIsLogin, function(req,res){
-    Evaluation.find(function(err, findevaluation){
-        var currentUser=req.user
-       if(currentUser.evaluationid===findevaluation._id){
-        res.render('evaluations/evaluations', {evaluation : findevaluation })
-       } 
-    });
-});
- */
-
-
-app.get('/evaluations',  userIsLogin,  (req, res)=> {
-    Evaluation.find().sort({createdAt:-1})
+//----------Blogs--------------------//
+app.get('/blogs',  (req, res)=> {
+    Blog.find().sort({createdAt:-1})
        .then((result)=>{
-        res.render("evaluations/evaluations", { evaluations: result });
+        res.render("blogs", { blogs: result });
        })
        .catch((err)=>{
            console.log(err);
        })
 });
 
-
-app.get('/evaluations/add', userIsLogin,  function (req, res) {
-    res.render("evaluations/add") 
+app.get('/blogadd', function (req, res) {
+    res.render("blogadd") 
 });
 
-app.post('/evaluations', userIsLogin, (req,res)=>{
-  var name = req.body.name;
-  var question_1 = req.body.question_1;
-  var question_2 = req.body.question_2;
-  var question_3 = req.body.question_3;
-  var question_4 = req.body.question_4;
-  var question_5 = req.body.question_5;
-  var question_6 = req.body.question_6;
-  var question_7 = req.body.question_7;
-  var question_8 = req.body.question_8;
-  var question_9 = req.body.question_9;
-  var question_10 = req.body.question_10;
-  var question_11 = req.body.question_11;
-  var question_12 = req.body.question_12;
-  var question_13 = req.body.question_13;
-  var question_14 = req.body.question_14;
-  var question_15 = req.body.question_15;
-  var question_16 = req.body.question_16;
-  var question_17 = req.body.question_17;
-  var question_18 = req.body.question_18;
-  var author = {id: req.user._id, username: req.user.username, fullname: req.user.fullname, role: req.user.role, evaluationid: req.user.evaluationid,  field: req.user.field };
-  var newevaluation = {
-      name: name, 
-      question_1:question_1, 
-      question_2:question_2,
-      question_3:question_3,
-      question_4:question_4,
-      question_5:question_5,
-      question_6:question_6,
-      question_7:question_7,
-      question_8:question_8,
-      question_9:question_9,
-      question_10:question_10,
-      question_11:question_11,
-      question_12:question_12,
-      question_13:question_13,
-      question_14:question_14,
-      question_15:question_15,
-      question_16:question_16,
-      question_17:question_17,
-      question_18:question_18,
-      author: author,
-    }
-    Evaluation.create(newevaluation, function(err, createdEvaluation){
-        var currentUser=req.user
+
+app.post('/blogs', (req,res)=>{
+    var header = req.body.header;
+    var photo = req.body.photo;
+    var short = req.body.short;
+    var long = req.body.long;
+    var date = req.body.date;
+    /* var author = {id: req.user._id, username: req.user.username, email: req.user.email, role: req.user.role}; */
+    var newblog = {
+        header: header, 
+        photo: photo, 
+        short:short,
+        long:long,
+        date:date,
+     /*    author: author, */
+      }
+      Blog.create(newblog, function(err, createdBlog){
+          var currentUser=req.user
+          if(err){
+              console.log(err);
+              res.redirect('/')
+          }else{
+           
+              res.redirect('/')
+          }
+          
+      })
+  });
+
+
+  app.get('/blogs/:id', function(req,res){
+    Blog.findById(req.params.id).populate("comments").exec(function(err, findedblog){
         if(err){
             console.log(err);
-            res.redirect('/')
         }else{
-            currentUser.evaluations.push(createdEvaluation)
-            currentUser.save();
-            res.redirect('/thanks')
+            res.render('blogs', {blogs: findedblog});
         }
-        
+    });
+
+});
+
+app.get('/blogs/:id/edit', userIsLogin, function(req,res){
+    Blog.findById(req.params.id, function(err, findedblog){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('blogedit', {blog: findedblog});
+        }
     })
+    });
+
+    app.put('/blogs/:id', userIsLogin, function (req,res) {
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedblog){
+        if (err) {
+            console.log(err)
+        }else{
+            res.redirect('/blogs/'+req.params.id);
+        }
+    })
+    })
+
+    //---------------- Blog routes end ------------------//
+
+
+
+//----------Project--------------------//
+app.get('/projects',  (req, res)=> {
+    Project.find().sort({createdAt:-1})
+       .then((result)=>{
+        res.render("blogs", { project: result });
+       })
+       .catch((err)=>{
+           console.log(err);
+       })
 });
 
-app.get('/evaluations/:id', userIsLogin, function(req,res){
-    Evaluation.findById(req.params.id).populate("comments").exec(function(err, findevaluation){
+app.get('/projectadd', userIsLogin,  function (req, res) {
+    res.render("projectadd") 
+});
+
+
+app.post('/projects', userIsLogin, (req,res)=>{
+    var name = req.body.name;
+    var country = req.body.country;
+    var client = req.body.client;
+    var funding = req.body.funding;
+    var dates = req.body.dates;
+    var partner = req.body.partner;
+    var detail = req.body.detail;
+    var newProject = {
+        name:name,
+        country: country, 
+        client:client,
+        funding:funding,
+        dates:dates,
+        partner: partner,
+        detail: detail
+      }
+      Blog.create(newProject, function(err, createdProject){
+          if(err){
+              console.log(err);
+              res.redirect('/')
+          }else{
+            res.redirect('/projects/'+req.params.id);
+          }
+          
+      })
+  });
+
+
+  app.get('/projects/:id', function(req,res){
+    Projects.findById(req.params.id).populate("comments").exec(function(err, findedProject){
         if(err){
             console.log(err);
         }else{
-            res.render('evaluations/evaluation', {evaluation: findevaluation});
+            res.render('projects', {project: findedProject});
         }
     });
 
 });
 
- app.get('/evaluations/:id/result', userIsLogin, function(req,res){
-    Evaluation.findById(req.params.id).populate("comments").exec(function(err, findevaluation){
+app.get('/projects/:id/editproject', userIsLogin, function(req,res){
+    Project.findById(req.params.id, function(err, findedproject){
         if(err){
             console.log(err);
         }else{
-            res.render('evaluations/result', {evaluation: findevaluation});
+            res.render('editproject', {project: findedproject});
         }
+    })
     });
 
-}); 
-
-
-
-
-
-app.get('/evaluations/:id/comments', userIsLogin, function(req,res){
-    Evaluation.findById(req.params.id).populate("comments").sort({createdAt:-1}).exec(function(err, findevaluation){
-        if(err){
-            console.log(err);
+    app.put('/projects/:id', userIsLogin, function (req,res) {
+    Project.findByIdAndUpdate(req.params.id, req.body.project, function(err, updatedproject){
+        if (err) {
+            console.log(err)
         }else{
-            res.render('evaluations/comments', {evaluation: findevaluation});
+            res.redirect('/projects/'+req.params.id);
         }
-    });
+    })
+    })
 
+    //---------------- Project routes end ------------------//
+
+
+app.get('/services',  function (req, res) {
+    res.render('services');
 });
 
-
-//====================EVALUATION ROUTES==================//
-
-
-
-
-//====================Report ROUTES==================//
-
-
-app.get('/evaluations/:id/reports/add', userIsLogin,  function(req,res){
-    Evaluation.findById(req.params.id, function(err, findevaluation){
-       if(err){
-           console.log(err);
-       } else{
-           res.render('reports/add', {evaluation : findevaluation });
-       }
-    });
+app.get('/careers', function(req,res){
+    res.render('careers');
 });
 
-
-app.post('/evaluations/:id/reports', userIsLogin, function(req,res){
-    Evaluation.findById(req.params.id, function(err, findevaluation){
-       if(err){
-           console.log(err);
-       } else{
-           Report.create(req.body.report, function(err, report ){
-               report.author.id = req.user._id;
-               report.author.username = req.user.username;
-               report.author.fullname = req.user.fullname;
-               report.save();
-               findevaluation.reports.push(report)
-               findevaluation.save();
-               res.redirect("/thanks")
-               /* res.redirect("/evaluations/"+findevaluation._id) */
-               
-
-           })
-       }
-    });
+app.get('/libraries', function(req,res){
+    res.render('library');
 });
 
-app.get('/evaluations/:id/reports', userIsLogin, function(req,res){
-    Evaluation.findById(req.params.id).populate("reports").exec(function(err, findevaluation){
-        if(err){
-            console.log(err);
-        }else{
-            res.render('evaluations/reports', {evaluation: findevaluation});
-        }
-    });
-
+app.get('/about', function(req,res){
+    res.render('about');
+});
+app.get('/contact', function(req,res){
+    res.render('contact');
 });
 
-
-
-
-//====================Report ROUTES==================//
-
-
-
-//====================EVALUATION EDIT ROUTES==================//
-
-app.get('/evaluations/:id/edit', userIsLogin, function(req,res){
-Evaluation.findById(req.params.id, function(err, findevaluation){
-    if(err){
-        console.log(err);
-    }else{
-        res.render('evaluations/edit', {evaluation: findevaluation});
-    }
-})
+app.get('/thanks', function(req,res){
+    res.render('thanks');
 });
 
-app.put('/evaluations/:id', userControl, userIsLogin, function (req,res) {
-Evaluation.findByIdAndUpdate(req.params.id, req.body.evaluation, function(err, updatedevaluation){
-    if (err) {
-        console.log(err)
-    }else{
-        res.redirect('/evaluations/'+req.params.id);
-    }
-})
-})
-
-//====================EVALUATION EDIT ROUTES==================//
-
-
-//==============================COMMENT ROUTES==========================//
-
-app.get('/evaluations/:id/comments/add', userIsLogin, function(req,res){
-    Evaluation.findById(req.params.id, function(err, findevaluation){
-       if(err){
-           console.log(err);
-       } else{
-           res.render('comments/add', {evaluation : findevaluation });
-       }
-    });
-});
-
-
-app.post('/evaluations/:id/comments/', userIsLogin, function(req,res){
-    Evaluation.findById(req.params.id, function(err, findevaluation){
-       if(err){
-           console.log(err);
-       } else{
-           Comment.create(req.body.comment, function(err, comment ){
-               comment.author.id = req.user._id;
-               comment.author.username = req.user.username;
-               comment.author.fullname = req.user.fullname;
-               comment.save();
-               findevaluation.comments.push(comment)
-               findevaluation.save();
-               res.redirect("/evaluations/"+findevaluation._id)
-
-           })
-       }
-    });
-});
 
 //==============================COMMENT ROUTES==========================//
 
@@ -474,18 +364,3 @@ app.put('/users/:id', userIsLogin, authPages(ROLE.ADMIN), function (req,res) {
         })
         })
         
-
-    
-
-//==============================USER ROUTES END==========================//
-
-/* app.post('/evaluations', (req,res)=>{
-    const evaluation = new Evaluation(req.body)
-    evaluation.save()
-    .then((result)=>{
-        res.redirect('/evaluations')
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
-}); */

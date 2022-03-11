@@ -1,0 +1,392 @@
+<%- include('../partials/header.ejs') %> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="/ckeditor/ckeditor.js"></script>
+<script src="/views/scripts.js"></script>
+
+<section class="container">
+  <div class="boxadd">
+    <h2 style="text-align: center;">Add news </h2>
+  </div>
+
+    <form action="/blogs" method="post">
+      <div  class="reportcontent">
+        <input style="height: 50px; border-color: lightgray;" type="text" class="evname" name="name"  placeholder="Müəssisənin adını daxil edin">
+      </div>
+      <div class="reportcontent">
+           <h5>1. Elmi müəssisə (təşkilat): Giriş</h5>
+            <p>Bu fəsildə müəssisə öz tarixi, strukturu, elmi fəaliyyəti və müvafiq hesab edilən digər fəaliyyətləri haqqında məlumat verməlidir. Fəsil təqribən 5-10 səhifədən uzun olmamalıdır. Ekspert şurasının üzvləri akkreditasiya proseduru üçün elmi müəssisə (təşkilat) haqqında ən aktual ümumi məlumatları bu fəsildən əldə edə bilməlidirlər. Burada verilən məlumatlar aşağıdakı fəsillərdə də təkrarlana bilər, lakin həmin fəsillərdə məlumat daha konkret və geniş olmalıdır.</p>           
+        <textarea required name="question_1" id="q1" class="q"  cols="30" rows="5"></textarea>
+       
+      </div>
+      <div class="reportcontent">
+           <h5>2. Özünüqiymətləndirmə prosesi</h5>
+       <p> Bu bölmədə müəssisə özünüqiymətləndirmənin necə təşkil edildiyini və kimlərin iştirak etdiyini qısa şəkildə təqdim etməlidir.</p>
+            
+        <textarea required name="question_2" id="q2" class="q" cols="30" rows="5"></textarea>
+      </div>
+      <div class="reportcontent">
+        <h5>3. Tədqiqat proqramı <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+       
+        
+        <p> Təşkilat milli prioritetləri nəzərə alan, məqsəd və prioritetləri, konkret hədəf və gələcək perspektivləri özündə ehtiva
+        edən strateji yönümlü araşdırma aparır.</p>
+        <p><i>Xüsusi: Müəssisə son beş ilin ən mühüm nəşrlərini və s. vurğulamalıdır. Bununla yanaşı, göstəricilərə uyğun
+            olaraq hazırlanmış nəşrlər olan cədvəlin əlavə edilməsi tövsiyə olunur.</i></p>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>
+            Müəssisənin tədqiqat strategiyası;
+          </li>
+          <li>
+            Tədqiqat proqramı (illik planlar və ya oxşar proqramlar) və onların həyata keçirilməsinin göstəriciləri;;
+          </li>
+          <li>
+            GZİT təhlili (strategiyanın tərtib edilməsi üçün hazırlanmış sənəd);
+          </li>
+          <li>
+            Tədqiqat strategiyasının həyata keçirilməsi üçün dövri hesabatlar və strateji planın aralıq qiymətləndirmə və ya
+        bənzəri üçün monitorinq və qiymətləndirmə hesabatları.
+          </li>
+        </ul>
+        <textarea required name="question_3" id="q3" class="q" cols="30" rows="5"></textarea>
+      </div>
+      <div class="reportcontent">
+       <h5>4. Tədqiqat fəaliyyəti <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+        <p>Elmi müəssisə (təşkilat) ölkədə və xaricdə sosial, mədəni, iqtisadi, ekoloji və siyasi inkişafa əhəmiyyətli töhfələr  verir.</p> 
+        <p>Xüsusi: Müəssisə son beş ilin ən mühüm nəşrlərini və s. vurğulamalıdır. Bununla yanaşı, göstəricilərə uyğun olaraq
+        hazırlanmış nəşrlər olan cədvəlin əlavə edilməsi tövsiyə olunur.</p> 
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Son beş ildəki nəşrlərinin siyahısı.</li>
+        </ul> 
+        <textarea required name="question_4" id="q4" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>5. Tədqiqat nəticəsi <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+        <p> Elmi müəssisə (təşkilat) milli və beynəlxalq əhəmiyyətli tədqiqatlar aparır</p>
+        <i>Xüsusi: Müəssisə standartda qeyd olunan sahələrdə son beş il ərzində onun nöqteyi-nəzərindən ən mühüm təsirin nə olduğunu izah etməlidir. Yalnız məlumatı təqdim etmək deyil, həm də qeyd olunan maddələrin nə üçün vacib sayıldığını əsaslandırmaq lazımdır. Müəssisə həmçinin biliklərin ötürülməsi üçün standart əməliyyat prosedurlarının və vasitələrin olub-olmadığını izah etməlidir.</i>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>
+            tərəfdaşlarla (biznes, sənaye və s. müəssisələr) əməkdaşlıq müqavilələrinin sayı;
+          </li>
+          <li>
+            son 3 ildə regional və milli inkişafla əlaqədar fəaliyyətlərin siyahısı.
+          </li>
+        </ul>
+        <textarea required name="question_5" id="q5" class="q"  cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>6. İnsan resursları <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+        <p> Elmi müəssisədə (təşkilatda), tədqiqat proqramını və gələcək perspektivləri həyata keçirmək üçün ixtisas, profil, say və tədqiqat fəaliyyəti baxımından uyğun olan elmi işçilər fəaliyyət göstərirlər. Elmi müəssisədə (təşkilatda) tədqiqat proqramının həyata keçirilməsini asanlaşdırmaq üçün kifayət qədər və uyğun ixtisaslı idarəetmə və inzibati işçilər də fəaliyyət göstərirlər.</p>
+        <p><i>Xüsusi: Müəssisə yalnız işçilərin sayı, ixtisası və tədqiqat fəaliyyəti haqqında məlumat verməməli, həm də meyarlarda qeyd olunan siyasətləri qısaca təsvir etməlidir. Bu, müəssisənin düzgün fəaliyyət göstərən idarəetmə sisteminə malik olduğunu sübut etmək üçündür.</i></p>
+        <p><b> Tövsiyyə olunan sənədlər:</b></p>
+        <ul>
+          <li>İnsan resursları siyasəti;</li>
+          <li>İşə qəbul qaydaları;</li>
+          <li>Veb saytlarda, qəzetlərdə və ya digər nəşriyyatlarda işə qəbul üçün yerləşdirilən əvvəlki elanların nümunələri;</li>
+          <li>Müəyyən işəgötürmə və ya yüksəlişlə əlaqədar şikayət nümunələri;</li>
+          <li>Son 3 ildə ixtisasını artıran işçilərin sayı;</li>
+          <li>Son 3 ildə kadrları inkişaf etdirmək üçün fəaliyyətlərin maliyyələşdirilməsi haqqında məlumatlar.</li>
+        </ul>           
+        <textarea required name="question_6" id="q6" class="q" cols="30" rows="5"></textarea>
+      </div>
+      <div class="reportcontent">
+        <h5>7. İnfrastruktur <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+        <p> Elmi müəssisə (təşkilat) tədqiqat proqramını və gələcək perspektivləri həyata keçirmək üçün uyğun olan ən müasir material və rəqəmsal infrastrukturla təchiz edilmişdir. </p>
+        <p><i>Xüsusi: Müəssisə yalnız bina və avadanlıqlar haqqında məlumat verməməli, həm də meyarlarda qeyd olunan siyasətləri qısaca təsvir etməlidir. Bu, müəssisənin düzgün fəaliyyət göstərən idarəetmə sisteminə malik olduğunun sübutudur.</i></p>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Tədqiqat fəaliyyətlərinin və ya layihələrin xüsusiyyətləri ilə əlaqədar xüsusi avadanlıqlar haqqında məlumatlar;</li>
+          <li>Tədqiqat fəaliyyəti üçün binalar haqqında məlumatlar.</li>
+        </ul>
+        <textarea required name="question_7" id="q7" class="q" cols="30" rows="5"></textarea>
+      </div>
+      <div class="reportcontent">
+        <h5>8. Maliyyə resursları <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+        <p>Elmi müəssisə (təşkilat) tədqiqat proqramını və gələcək perspektivləri həyata keçirmək üçün kifayət qədər maliyyələşdirilir.</p>  
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Maliyyə planı;</li>
+          <li>Maliyyələşmə resurslarına görə müəssisənin gəliri;</li>
+          <li>Kateqoriyalar üzrə müəssisənin xərcləri;</li>
+          <li>Binaların təmirinə ayrılan illik vəsait;</li>
+          <li>Kitabxana fondlarının yenilənməsinə ayrılan illik vəsait;</li>
+          <li>İnformasiya texnologiyaları resurslarının yenilənməsinə ayrılan illik vəsait;</li>
+          <li>Texnoloji və laboratoriya avadanlıqlarının yenilənməsinə ayrılan illik vəsait.</li>
+        </ul>
+        <textarea required name="question_8" id="q8" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>9. Tədqiqat mühiti <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+        <p>Elmi müəssisə (təşkilat) müəyyən tədqiqat mühitinə malikdir və tədqiqat proqramına inteqrasiya olunmuş doktorantura proqramı sahəsində yüksək keyfiyyətli tədqiqatlar aparır</p> 
+        <p><i>Xüsusi: Burada təqdim olunan məlumat və izahatlar əvvəlki fəsillərdəkilərlə üst-üstə düşə bilər. Bu qaçılmazdır. Lakin müəssisə əvvəlki məlumatlardan yalnız doktorantura proqramının xüsusi diqqət mərkəzində olan hissələrini istifadə etməlidir.</i></p>
+        <textarea required name="question_9" id="q9" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>10.  Elmi rəhbərlik və dəstək <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+         <p> Elmi müəssisə (təşkilat) doktorantlara effektiv elmi rəhbərliyi təmin edir və peşəkar dəstək verir.</p></p>
+        <p><i>Xüsusi: Bu çox əsas standartdır. Müəssisə doktorantlara elmi rəhbərliyin və dəstəyin praktikada necə olduğunu ətraflı izah etməlidir. Nümunələr verilməlidir. Meyarlarda qeyd olunan bütün maddələr üçün sübut əlavə etmək də vacibdir.</i>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Elmi müəssisə (təşkilat), doktorantlar və elmi rəhbərlər arasındakı müqavilələrin nümunəsi;</li>
+          <li>Fənn üzrə konfrans və beynəlxalq diskurslarda iştirakın dəstəklənmə siyasəti.</li>
+        </ul>
+        <textarea required name="question_10" id="q10" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>11. İşçi heyət <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+         <p> Elmi müəssisədə (təşkilatda) tədqiqat proqramını həyata keçirmək üçün ixtisas, profil, say və tədqiqat fəaliyyəti baxımından uyğun olan elmi işçilər fəaliyyət göstərirlər. Elmi müəssisədə (təşkilatda) kifayət qədər və uyğun ixtisaslı  idarəetmə və inzibati işçilər də fəaliyyət göstərirlər.</p>            
+         <p><i>Xüsusi: Bu çox əsas standartdır. Müəssisə doktorantlara elmi rəhbərliyin və dəstəyin praktikada necə olduğunu ətraflı izah etməlidir. Nümunələr verilməlidir. Meyarlarda qeyd olunan bütün maddələr üçün sübut əlavə etmək də vacibdir.</i></p>
+        <p><i>Xüsusi: Burada təqdim olunan məlumat və izahatlar əvvəlki fəsillərdəkilərlə üst-üstə düşə bilər. Bu qaçılmazdır. Lakin müəssisə əvvəlki məlumatlardan yalnız doktorantura proqramının xüsusi diqqət mərkəzində olan hissələrini istifadə etməlidir.</i></p>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Daimi və əlavə elmi işçilər (doktorantların müəyyən edilmiş minimum sayını nəzərə alaraq) üçün, eləcə də tam fəaliyyət (maksimum tələbə sayı) üçün nəzərdə tutulan vəzifələrin təsviri (məşğulluq və fəaliyyət sahəsi haqqında məlumatlar daxil olmaqla);</li>
+          <li>Elmi müəssisədə (təşkilatda) fəaliyyət göstərən elmi işçilərin daimi və əlavə vəzifələri üçün tərcümeyi-hal (CV);</li>
+          <li>Fəaliyyət göstərməyən elmi işçilərin daimi əlavə vəzifələri üçün müvafiq vəzifəni və nəzərdə tutulan məşğulluğun və ya tədris yükünün miqdarını ifadə edən və əsas müqavilənin bağlanacağı vaxtı göstərən niyyət məktubu;</li>
+          <li>Tələbə-müəllim nisbəti də daxil olmaqla tələbə-elmi rəhbər nisbətinin sənədləşdirilməsi.</li>
+        </ul>
+        <textarea required name="question_11" id="q11" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>12. Keyfiyyət təminatı </h5>
+         <p> Elmi müəssisə (təşkilat) doktorantura proqramlarının akkreditasiya meyarlarına və qaydaların qanuni tələblərinə cavab verdiyini qiymətləndirmək və doktorantura təhsilinin, xüsusən də, tədqiqat çərçivəsinin və elmi rəhbərliyin yüksək xarakteristikada olmasını təmin etmək üçün təsirli keyfiyyət təminatı vasitələrini tətbiq edir.</p>
+         <p><i>Xüsusi: Burada təqdim olunan məlumat və izahatlar əvvəlki fəsillərdəkilərlə üst-üstə düşə bilər. Bu qaçılmazdır. Lakin müəssisə əvvəlki məlumatlardan yalnız doktorantura proqramının xüsusi diqqət mərkəzində olan hissələrini istifadə etməlidir.</i></p>
+        <textarea required name="question_12" id="q12" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>13. İdarəetmə və nəzarət <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+         <p> Elmi müəssisə (təşkilat) tədqiqat fəaliyyətini, inzibati, digər fəaliyyət və xidmətlərini həyata keçirmək üçün effektiv və səmərəli idarəetmə struktur və mexanizmlərini tətbiq edir.</p>         
+        <p><i>Xüsusi: Müəssisə, qurum və komitələrin müxtəlif səviyyələrinin necə qarşılıqlı fəaliyyət göstərdiyinə və vəzifələrin necə yerinə yetirildiyinə dair nümunələr vermək vacibdir. Qrafiklərin təqdimatı kifayət deyil.</i></p>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Müəssisənin fəaliyyətinin idarə olunmasında, inkişafında daxili və xarici maraqlı tərəflərin rolunu əks etdirən nizamnamə və ya digər rəsmi sənəd;</li>
+          <li>Təşkilati strukturun sxemi.</li>
+        </ul>
+        <textarea required name="question_13" id="q13" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>14. Daxili keyfiyyət təminatı <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+        <p> Elmi müəssisə (təşkilat) bütün fəaliyyət sahələrini əhatə edən təsirli daxili keyfiyyət təminatı sistemini tətbiq edir.</p>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Daxili keyfiyyət təminatı sisteminin sənədləri (keyfiyyət nizamnaməsi və s.);</li>
+          <li>Elmi müəssisənin (təşkilatın) fəaliyyətinin təkmilləşdirilməsi üçün görülən tədbirlər ilə birlikdə əvvəlki akkreditasiyadan olan qiymətləndirmə hesabatı;</li>
+          <li>Anket, sorğu, müzakirələr və s. vasitəsilə alınan rəy haqqında məlumatlar.</li>
+        </ul>
+        <textarea required name="question_14" id="q14" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>15. Akademik dürüstlük <i style="font-size: 16px;" data-modal-target="#modal1" id="questionicon" class="bi bi-question-square-fill"></i></h5>
+         <p> Elmi müəssisə (təşkilat) akademik dürüstlüyü qorumaq üçün effektiv prosedurlar tətbiq edir.</p>
+        <p><i>Xüsusi: Prosesin necə həyata keçirildiyinə dair nümunələr vermək vacibdir. Bundan əlavə, proseslərin effektivliyini nümayiş etdirən nümunələr təqdim edilməlidir.</i></p>
+        <p><b>Tövsiyyə olunan sənədlər</b></p>
+        <ul>
+          <li>Akademik dürüstlük prinsiplərini ehtiva edən akademik davranış və ya oxşar sənəd;</li>
+          <li>Şikayətlər və onlara baxılma prosedurları;</li>
+          <li>İllik şikayətlərin sayı (son 3 ilin məlumatları);</li>
+          <li>Şikayətlərə baxılmanın nəticələri (son 3 ilin məlumatları);</li>
+          <li>Mübahisələrin həlli üçün ictimaiyyətə açıq olan məlumat və prosedurlar.</li>
+        </ul>
+        <textarea required name="question_15" id="q15" class="q" cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>Nəticələr </h5>
+        <p><i>Bu məcburi fəsil deyil. Müəssisə bu fəsildən bəzi əhəmiyyətli xüsusiyyətləri vurğulamaq və ya özünüqiymətləndirmədən nəticələnən gələcək fəaliyyətlərə baxış üçün istifadə edə bilər.</i></p>
+        <textarea name="question_16" id="q16" class="q"  cols="30" rows="5"></textarea>
+        </div>
+        <div class="reportcontent">
+        <h5>Əlavə </h5>
+        <p><i>Müxtəlif fəsillərdə istinad edilən bütün sənədlər.</i></p>
+        <textarea required name="question_17" id="q17" class="q" cols="30" rows="5"></textarea>
+        </div>
+
+         <input id="myButton" style="margin-top: 5px; width: 100%;" class="btn btn-success" type="submit" value="Gondər" >
+    </form>
+
+   
+</section>
+<div class="modal1" id="modal1">
+  <div class="modal1-header">
+    <div class="title">Ümumi məlumat</div>
+    <button data-close-button class="close-button">&times;</button>
+  </div>
+  <div class="modal1-body">
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bu fəsildə müəssisə standarta niyə və necə uyğun olduğunu izah etməlidir. Bu məqsədlə müəssisə, mümkünsə, standart və meyarlarda qeyd olunan bütün müvafiq aspektləri əhatə edən təsviri təqdim etməlidir. Qaydaların “nəzərə alınmalı məsələlər” bölməsində qeyd olunan maddələrdə əlavə göstərişlər verilir. Müəssisə xüsusi sisteminin standartlara necə uyğun gəldiyini izah etməlidir. Özünüqiymətləndirmə nəticəsində müəssisə gələcəkdə dəyişiklikləri həyata keçirməli olduğuna inanırsa, bu haqda əlavə məlumat verməsi tövsiyə olunur.<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;Mətndə müəssisə əlavələrə istinad etməlidir. Sənədə ümumi istinad əvəzinə, əlavələrin səhifələrinə xüsusi istinadlar etmək məqsədəuyğundur. Ekspert şurasının üzvləri əlavələrdəki müvafiq məlumatları asanlıqla tapa bilməlidirlər.<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;Mətn başadüşülən olmalıdır. Bu, o deməkdir ki, ekspert şurasının üzvləri əlavələri oxumadan mətni başa düşməlidirlər. Əlavələr yalnız daha dərin və ətraflı məlumat verməli və ya sübut kimi nümunələrdən ibarət olmalıdır. Əsas məzmun bu fəsildə təqdim edilməlidir.<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;Müəssisə özünüqiymətləndirmə hesabatının həcminə diqqət yetirməlidir. Buna görə də, yalnız standarta birbaşa istinad edən məlumat və təhlillər təqdim edilməlidir.<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;Xüsusi: müəssisə öz tədqiqat strategiyasının ən mühüm xüsusiyyətlərini qısaca vurğulamalı və onun ortamüddətli proqrama necə çevrildiyini izah etməlidir. Strategiya və proqramın məzmununa gəldikdə, müəssisə meyarlarda qeyd olunan mövzulara qısaca toxunmalıdır.
+      </p>
+  </div>
+</div>
+<div id="overlay"></div>
+
+
+<script>
+ 
+ CKEDITOR.replace( 'question_1',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+
+  CKEDITOR.replace( 'question_2',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  
+  CKEDITOR.replace( 'question_3',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  
+  CKEDITOR.replace( 'question_4',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  
+  CKEDITOR.replace( 'question_5',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  
+  CKEDITOR.replace( 'question_6',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  
+  CKEDITOR.replace( 'question_7',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_8',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_9',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_10',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_11',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_12',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_13',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_14',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_15',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_16',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+  CKEDITOR.replace( 'question_17',{
+    extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'//route
+  });
+
+  
+</script>
+
+<script>
+  const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const modal = document.querySelector(button.dataset.modalTarget)
+    openModal(modal)
+  })
+})
+
+overlay.addEventListener('click', () => {
+  const modals = document.querySelectorAll('.modal1.active')
+  modals.forEach(modal => {
+    closeModal(modal)
+  })
+})
+
+closeModalButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const modal = button.closest('.modal1')
+    closeModal(modal)
+  })
+})
+
+function openModal(modal) {
+  if (modal == null) return
+  modal.classList.add('active')
+  overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+  if (modal == null) return
+  modal.classList.remove('active')
+  overlay.classList.remove('active')
+}
+</script>
+<!-- <script type="text/javascript">
+   	$(document).ready(function() {
+      CKEDITOR.replaceAll( 'q',{
+    extraplugins:'filebrowser',
+    filebrowserBrowseUrl: '/list',
+    filebrowserUploadMethod: 'form',
+    filebrowserUploadUrl: 'form',
+
+      });
+			});
+</script> -->
+
+<%- include('../partials/footer.ejs') %> 
+

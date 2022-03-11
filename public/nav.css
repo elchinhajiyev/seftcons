@@ -1,0 +1,70 @@
+.site-header{
+
+    width: 90%;
+    height: 150px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.site-header .logo{
+    height: 110px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-sizing: border-box;
+    color: rgb(182, 180, 180);
+}
+
+.nav{
+    height: 50px;
+    width: 100%;
+    background-color: orangered;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius:0 0 10px 10px;
+    position: relative;
+}
+
+.nav ul{
+    font-weight: 700;
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #fff;
+    margin-left: 15px;
+}
+
+.nav ul li{
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 300ms all;
+}
+.nav ul li:hover{
+    background-color: #fff;
+    color: orangered;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search{
+    height: 30px;
+    margin-left: auto;
+
+}
+
+.nav ul a{
+        color: #fff;
+}
